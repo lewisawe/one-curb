@@ -1,0 +1,20 @@
+# --- secrets ---
+.env
+
+# --- python ---
+.venv/
+__pycache__/
+*.pyc
+
+# --- the DEV post itself (published separately on dev.to) ---
+devSubmission.md
+
+# --- internal planning / bookkeeping / agent docs (not for the public repo) ---
+.agents/
+plan.md
+idea-scorecard.md
+RESUME.md
+entry.meta.yml
+
+# --- stray / misplaced files ---
+shots/fewshot.json

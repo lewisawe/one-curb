@@ -1,0 +1,2377 @@
+{
+  "n_heldout": 31,
+  "resolved_base_model": "Qwen/Qwen3.5-4B",
+  "fine_tuned_sampler_path": "tinker://ff9361bf-e95f-5ebd-92a4-d9fe94f06874:train:0/sampler_weights/onecurb-sft",
+  "fewshot_exemplar_ids": [
+    "8759014",
+    "19612023",
+    "18421072",
+    "4541378",
+    "18269592"
+  ],
+  "conditions": [
+    "zero_shot",
+    "few_shot",
+    "fine_tuned"
+  ],
+  "headline_missing_evidence": {
+    "zero_shot": {
+      "tp": 40,
+      "fp": 9,
+      "fn": 49,
+      "tn": 40,
+      "precision": 0.8163265306122449,
+      "recall": 0.449438202247191,
+      "f1": 0.5797101449275361,
+      "n_field_units": 138
+    },
+    "few_shot": {
+      "tp": 12,
+      "fp": 8,
+      "fn": 77,
+      "tn": 41,
+      "precision": 0.6,
+      "recall": 0.1348314606741573,
+      "f1": 0.2201834862385321,
+      "n_field_units": 138
+    },
+    "fine_tuned": {
+      "tp": 87,
+      "fp": 46,
+      "fn": 2,
+      "tn": 3,
+      "precision": 0.6541353383458647,
+      "recall": 0.9775280898876404,
+      "f1": 0.7837837837837838,
+      "n_field_units": 138
+    }
+  },
+  "paired_counts": {
+    "fine_tuned_vs_few_shot": {
+      "x": "fine_tuned",
+      "y": "few_shot",
+      "x_right_y_wrong_b": 75,
+      "y_right_x_wrong_c": 38,
+      "both_right": 15,
+      "both_wrong": 10,
+      "n_compared": 138
+    },
+    "fine_tuned_vs_zero_shot": {
+      "x": "fine_tuned",
+      "y": "zero_shot",
+      "x_right_y_wrong_b": 48,
+      "y_right_x_wrong_c": 38,
+      "both_right": 42,
+      "both_wrong": 10,
+      "n_compared": 138
+    },
+    "few_shot_vs_zero_shot": {
+      "x": "few_shot",
+      "y": "zero_shot",
+      "x_right_y_wrong_b": 18,
+      "y_right_x_wrong_c": 45,
+      "both_right": 35,
+      "both_wrong": 40,
+      "n_compared": 138
+    }
+  },
+  "secondary_category_accuracy": {
+    "zero_shot": {
+      "category_accuracy": 0.3548387096774194,
+      "correct": 11,
+      "total": 31
+    },
+    "few_shot": {
+      "category_accuracy": 0.1935483870967742,
+      "correct": 6,
+      "total": 31
+    },
+    "fine_tuned": {
+      "category_accuracy": 0.8064516129032258,
+      "correct": 25,
+      "total": 31
+    }
+  },
+  "appendix": {
+    "zero_shot": {
+      "valid_json_rate": 0.5161290322580645,
+      "valid_json": 16,
+      "n": 31,
+      "severity_mae": 2.0,
+      "severity_scored": 16
+    },
+    "few_shot": {
+      "valid_json_rate": 0.1935483870967742,
+      "valid_json": 6,
+      "n": 31,
+      "severity_mae": 1.8333333333333333,
+      "severity_scored": 6
+    },
+    "fine_tuned": {
+      "valid_json_rate": 1.0,
+      "valid_json": 31,
+      "n": 31,
+      "severity_mae": 1.6129032258064515,
+      "severity_scored": 31
+    }
+  },
+  "per_row": [
+    {
+      "ticket_id": "2512804",
+      "issue_type": "Sidewalk Defect",
+      "gold_category": "SurfaceProblem",
+      "gold_category_secondary_map": "SurfaceProblem",
+      "gold_severity": 3,
+      "required_fields": [
+        "location",
+        "measurement",
+        "clear_width",
+        "impact",
+        "persistence"
+      ],
+      "gold_missing_evidence": [
+        "clear_width",
+        "impact",
+        "measurement",
+        "persistence"
+      ],
+      "conditions": {
+        "zero_shot": {
+          "raw_output": "\n\n{\n  \"category\": \"SurfaceProblem\",\n  \"severity\": 3,\n  \"objective_description\": \"Rough gaps in the sidewalk make it difficult to walk with a stroller or a best shopping cart\",\n  \"location\": \"coming on the sidewalk from the crosswalk\",\n  \"missing_evidence\": [\n    \"clear_width\",\n    \"persistence\"\n    \"measurement\"\n  ],\n  \"followup_instruction\": \"Measure the clear width and check if the rough gaps persist over time\"\n}\n\n<think>\nThinking Process:\n\n1.  **Analyze the Request:**\n    *   Input: A messy pedestrian-accessibility field note (\"Rough gaps in the sidewalk make it difficult to walk with a stroller or a shopping cart, especially coming on the sidewalk from the crosswalk.\").\n    *   Task: Convert into a compact civic report (JSON).\n    *   Constraints:\n        *   Select exactly one barrier category from: Crosswalk, CurbRamp, NoCurbRamp, NoSidewalk, Obstacle, Signal, SurfaceProblem.\n        *   Assign severity (1-5) based on Project Sidewalk scale.\n        *   Identify missing evidence based on specific requirements for the chosen category.\n        *   Output ONLY a single JSON object.\n        *   Keys: `category`, `severity`, `objective_description`, `location`, `missing_evidence`, `followup_instruction`.\n        *   `missing_evidence`: List of required evidence field names not supplied.\n        *   `followup_instruction`: Single highest-priority follow-up (empty string if nothing missing).\n        *   `objective_description`: Needs to be corrected from the prompt's example (which had a typo \"best shopping cart\" -> \"shopping cart\"). I should fix the description based on the input text.\n    *   Input Note Analysis: \"Rough gaps in the sidewalk make it difficult to walk with a stroller or a shopping cart,",
+          "parsed": null,
+          "valid_json": false,
+          "pred_category": null,
+          "pred_missing_evidence": [],
+          "pred_severity": null
+        },
+        "few_shot": {
+          "raw_output": "{\"category\": \"SurfaceProblem\",\"severity\": 3,\"rough_gaps_in_sidewalk\",\"rough_gaps_in_sidewalk\"\n\n<think>\nThinking Process:\n\n1.  **Analyze the Request:**\n    *   Input: A messy pedestrian-accessibility field note.\n    *   Task: Convert it into a compact civic report (JSON format).\n    *   Constraints:\n        *   Output ONLY a single JSON object.\n        *   Keys: `category`, `severity`, `objective_description`, `location`, `missing_evidence`, `followup_instruction`.\n        *   `category`: Must be one of: Crosswalk, CurbRamp, NoCurbRamp, NoSidewalk, Obstacle, Signal, SurfaceProblem.\n        *   `severity`: Integer 1-5 (Project Sidewalk scale).\n        *   `missing_evidence`: List of required evidence fields not supplied in the note.\n        *   `followup_instruction`: Single highest-priority follow-up (empty string if nothing missing).\n        *   Required evidence per category:\n            *   Crosswalk: location, measurement, impact, persistence\n            *   CurbRamp: location, measurement, detectable_warning, impact, persistence\n            *   NoCurbRamp: location, measurement, impact, persistence\n            *   NoSidewalk: location, measurement, impact, persistence\n            *   Obstacle: location, measurement, impact, persistence\n            *   Signal: location, measurement, impact, persistence\n            *   SurfaceProblem: location, measurement, clear_width, impact, persistence\n    *   Input Note: \"Rough gaps in the sidewalk make it difficult to walk with a stroller or a shopping cart, especially coming on the sidewalk from the crosswalk.\"\n\n2.  **Analyze the Input Note:**\n    *   Content: \"Rough gaps in the sidewalk make it difficult to walk with a stroller or a shopping cart, especially coming on",
+          "parsed": null,
+          "valid_json": false,
+          "pred_category": null,
+          "pred_missing_evidence": [],
+          "pred_severity": null
+        },
+        "fine_tuned": {
+          "raw_output": "{\"category\": \"SurfaceProblem\",\"severity\": 3,\"objective_description\": \"Rough gaps in the sidewalk impede walking, particularly for strollers and shopping carts.\",\"location\": \"11-19 Orchard St, Cambridge, MA 02140, USA\",\"missing_evidence\": [\"location\",\"measurement\",\"clear_width\",\"impact\",\"persistence\"],\"followup_instruction\": \"Measure the defect: the height of the vertical lip or the depth of the hole in inches, and the length of the broken stretch in feet.\"}<|im_end|>",
+          "parsed": {
+            "category": "SurfaceProblem",
+            "severity": 3,
+            "objective_description": "Rough gaps in the sidewalk impede walking, particularly for strollers and shopping carts.",
+            "location": "11-19 Orchard St, Cambridge, MA 02140, USA",
+            "missing_evidence": [
+              "location",
+              "measurement",
+              "clear_width",
+              "impact",
+              "persistence"
+            ],
+            "followup_instruction": "Measure the defect: the height of the vertical lip or the depth of the hole in inches, and the length of the broken stretch in feet."
+          },
+          "valid_json": true,
+          "pred_category": "SurfaceProblem",
+          "pred_missing_evidence": [
+            "clear_width",
+            "impact",
+            "location",
+            "measurement",
+            "persistence"
+          ],
+          "pred_severity": 3
+        }
+      }
+    },
+    {
+      "ticket_id": "6164392",
+      "issue_type": "A-Frame/Business Sidewalk Obstruction",
+      "gold_category": "Obstacle",
+      "gold_category_secondary_map": "Obstacle",
+      "gold_severity": 2,
+      "required_fields": [
+        "location",
+        "measurement",
+        "impact",
+        "persistence"
+      ],
+      "gold_missing_evidence": [
+        "impact",
+        "measurement",
+        "persistence"
+      ],
+      "conditions": {
+        "zero_shot": {
+          "raw_output": "\n\n<think>\nThinking Process:\n\n1.  **Analyze the Request:**\n    *   Input: A messy pedestrian-accessibility field note.\n    *   Task: Convert it into a compact civic report (JSON format).\n    *   Constraints:\n        *   Select exactly one barrier category from: Crosswalk, CurbRamp, NoCurbRamp, NoSidewalk, Obstacle, Signal, SurfaceProblem.\n        *   Assign a severity (1-5) based on Project Sidewalk scale.\n        *   Identify missing evidence based on specific requirements for the chosen category.\n        *   Output ONLY a single JSON object with specific keys: `category`, `severity`, `objective_description`, `location`, `missing_evidence`, `followup_instruction`.\n        *   `missing_evidence` must be a list of required field names not supplied in the note.\n        *   `followup_instruction` must be the single highest-priority follow-up (empty string if nothing missing).\n        *   No markdown, no extra text.\n\n2.  **Analyze the Field Note:**\n    *   Text: \"Car is perpetually parked on the sidewalk, obstructing wheelchairs and strollers. Have needed to walk in the street multiple times because of this obstruction\"\n    *   Key Issue: Vehicle obstruction on the sidewalk.\n    *   Impact: Wheelchairs and strollers obstructed; pedestrians forced into street.\n\n3.  **Determine Category:**\n    *   The note describes a physical object (car) blocking the path.\n    *   Options:\n        *   Crosswalk: No mention of crosswalk.\n        *   CurbRamp: No mention of curb ramps.\n        *   NoCurbRamp: No mention of missing ramps.\n        *   NoSidewalk: Sidewalk exists (car is on it), but obstructed.\n        *   Obstacle: A car is a physical obstacle. This",
+          "parsed": null,
+          "valid_json": false,
+          "pred_category": null,
+          "pred_missing_evidence": [],
+          "pred_severity": null
+        },
+        "few_shot": {
+          "raw_output": "{\"category\": \"Obstacle\",\"severity\": 4,\"objective forcing the user to walk in the street.\n\nJSON:{\"category\": \"Obstacle\",\"severity\": 4,\"objective_description\": \"A car is parked on the sidewalk, forcing users to walk in the street.\",\"location\": \"Norfolk St near the Recycling Center entrance, between 275 and 301 Norfolk St, Cambridge,walk in the street.\",\"missing_evidence\": [\"location\",\"measurement\",\"impact\",\"peph<|im_end|>",
+          "parsed": null,
+          "valid_json": false,
+          "pred_category": null,
+          "pred_missing_evidence": [],
+          "pred_severity": null
+        },
+        "fine_tuned": {
+          "raw_output": "{\"category\": \"Obstacle\",\"severity\": 5,\"objective_description\": \"A vehicle is parked on the sidewalk, blocking the pedestrian path.\",\"location\": \"11-199 Concord Ave, Cambridge, MA 02138, USA\",\"missing_evidence\": [\"location\",\"measurement\",\"impact\",\"persistence\"],\"followup_instruction\": \"Measure the clear width still open past the obstruction in inches (PROWAG needs at least 48 in / 1.2 m); if under 36 in say so explicitly.\"}<|im_end|>",
+          "parsed": {
+            "category": "Obstacle",
+            "severity": 5,
+            "objective_description": "A vehicle is parked on the sidewalk, blocking the pedestrian path.",
+            "location": "11-199 Concord Ave, Cambridge, MA 02138, USA",
+            "missing_evidence": [
+              "location",
+              "measurement",
+              "impact",
+              "persistence"
+            ],
+            "followup_instruction": "Measure the clear width still open past the obstruction in inches (PROWAG needs at least 48 in / 1.2 m); if under 36 in say so explicitly."
+          },
+          "valid_json": true,
+          "pred_category": "Obstacle",
+          "pred_missing_evidence": [
+            "impact",
+            "location",
+            "measurement",
+            "persistence"
+          ],
+          "pred_severity": 5
+        }
+      }
+    },
+    {
+      "ticket_id": "2466928",
+      "issue_type": "Sidewalk Defect",
+      "gold_category": "SurfaceProblem",
+      "gold_category_secondary_map": "SurfaceProblem",
+      "gold_severity": 2,
+      "required_fields": [
+        "location",
+        "measurement",
+        "clear_width",
+        "impact",
+        "persistence"
+      ],
+      "gold_missing_evidence": [
+        "clear_width",
+        "measurement",
+        "persistence"
+      ],
+      "conditions": {
+        "zero_shot": {
+          "raw_output": "\n\n<think>\nThinking Process:\n\n1.  **Analyze the Request:**\n    *   Input: A messy pedestrian-accessibility field note.\n    *   Task: Convert into a compact civic report (JSON format).\n    *   Constraints:\n        *   Select exactly one barrier category from: Crosswalk, CurbRamp, NoCurbRamp, NoSidewalk, Obstacle, Signal, SurfaceProblem.\n        *   Assign severity (1-5) based on Project Sidewalk scale.\n        *   Identify missing evidence based on specific requirements for the chosen category.\n        *   Output ONLY a single JSON object with specific keys: `category`, `severity`, `objective_description`, `location`, `missing_evidence`, `followup_instruction`.\n        *   `missing_evidence` must be a list of required evidence field names not supplied in the note.\n        *   `followup_instruction` must be the single highest-priority follow-up (empty string if nothing missing).\n        *   No other text or markdown.\n\n2.  **Analyze the Field Note:**\n    *   Text: \"There are cracks in this portion of the sidewalk which is pushed up. Stroller wheels get caught in the concrete and it is also a trip hazard. It is in need of repair as soon as possible\"\n    *   Key observations:\n        *   \"cracks in this portion of the sidewalk\" -> Surface issue.\n        *   \"pushed up\" -> Depression/Heave, likely affecting surface continuity.\n        *   \"Stroller wheels get caught\" -> Obstacle/Impediment, but caused by surface condition.\n        *   \"trip hazard\" -> Safety concern.\n        *   \"need of repair\" -> Actionable.\n    *   Category Selection:\n        *   Is it a Crosswalk? No mention of crossing.\n        *   Is it a CurbRamp? No mention of curb/ramp.\n        *  ",
+          "parsed": null,
+          "valid_json": false,
+          "pred_category": null,
+          "pred_missing_evidence": [],
+          "pred_severity": null
+        },
+        "few_shot": {
+          "raw_output": " {\"category\": \"SurfaceProblem\",\"severity\": 3,\"note\": \"Sidewalk cracks pushed up, creating a trip hazard and stroller obstruction.\",\"location\": \"115 Mount Auburn Street, Cambridge, MA 02138\",\"missing_evidence\": [\"location\",\"measurement\",\"clear_width\",\"impact\",\"p<|im_start|><|im_end|>",
+          "parsed": null,
+          "valid_json": false,
+          "pred_category": null,
+          "pred_missing_evidence": [],
+          "pred_severity": null
+        },
+        "fine_tuned": {
+          "raw_output": "{\"category\": \"SurfaceProblem\",\"severity\": 3,\"objective_description\": \"Cracked and heaved sidewalk surface at 10-18 Kinnaird St, Cambridge, MA, causing stroller wheels to catch and creating a trip hazard.\",\"location\": \"10-18 Kinnaird St, Cambridge, MA\",\"missing_evidence\": [\"location\",\"measurement\",\"clear_width\",\"impact\",\"persistence\"],\"followup_instruction\": \"Measure the defect: the height of the vertical lip or the depth of the hole in inches, and the length of the broken stretch in feet.\"}<|im_end|>",
+          "parsed": {
+            "category": "SurfaceProblem",
+            "severity": 3,
+            "objective_description": "Cracked and heaved sidewalk surface at 10-18 Kinnaird St, Cambridge, MA, causing stroller wheels to catch and creating a trip hazard.",
+            "location": "10-18 Kinnaird St, Cambridge, MA",
+            "missing_evidence": [
+              "location",
+              "measurement",
+              "clear_width",
+              "impact",
+              "persistence"
+            ],
+            "followup_instruction": "Measure the defect: the height of the vertical lip or the depth of the hole in inches, and the length of the broken stretch in feet."
+          },
+          "valid_json": true,
+          "pred_category": "SurfaceProblem",
+          "pred_missing_evidence": [
+            "clear_width",
+            "impact",
+            "location",
+            "measurement",
+            "persistence"
+          ],
+          "pred_severity": 3
+        }
+      }
+    },
+    {
+      "ticket_id": "3748583",
+      "issue_type": "Sidewalk Defect",
+      "gold_category": "SurfaceProblem",
+      "gold_category_secondary_map": "SurfaceProblem",
+      "gold_severity": 2,
+      "required_fields": [
+        "location",
+        "measurement",
+        "clear_width",
+        "impact",
+        "persistence"
+      ],
+      "gold_missing_evidence": [
+        "clear_width",
+        "impact",
+        "measurement",
+        "persistence"
+      ],
+      "conditions": {
+        "zero_shot": {
+          "raw_output": "\n{\n  \"category\": \"NoSidewalk\",\n  \"severity\": 5,\n  \"objective_description\": \"Pedestrian path is completely absent, forcing users into the roadway.\",\n  \"location\": \"Intersection of 5th and Main\",\n  \"missing_evidence\": [\"measurement\", \"impact\", \"persistence\"],\n  \"followup_instruction\": \"Conduct a full sidewalk audit to confirm absence and document dimensions.\"\n}\n\n<think>\nThinking Process:\n\n1.  **Analyze the Request:**\n    *   Input: A messy pedestrian-accessibility field note (\"Strollers and wheelchairs are forced into the street. Dangerous!\").\n    *   Task: Convert into a compact civic report (JSON format).\n    *   Constraints:\n        *   Select exactly one barrier category from: Crosswalk, CurbRamp, NoCurbRamp, NoSidewalk, Obstacle, Signal, SurfaceProblem.\n        *   Assign severity (1-5) based on Project Sidewalk scale.\n        *   Identify missing evidence based on the specific requirements for the chosen category.\n        *   Output ONLY a single JSON object.\n        *   Keys: `category`, `severity`, `objective_description`, `location`, `missing_evidence`, `followup_instruction`.\n        *   `missing_evidence`: List of required evidence fields NOT supplied in the note.\n        *   `followup_instruction`: Single highest-priority follow-up (empty string if nothing missing).\n    *   Input Note Analysis: \"Strollers and wheelchairs are forced into the street. Dangerous!\"\n        *   Implies: No sidewalk exists at this location.\n        *   Implies: High severity (unsafe, dangerous).\n        *   Implies: Location is not specified (generic \"the street\").\n        *   Implies: Impact is described (\"forced into the street\", \"Dangerous\").\n        *   Implies: Persistence is not mentioned (is",
+          "parsed": {
+            "category": "NoSidewalk",
+            "severity": 5,
+            "objective_description": "Pedestrian path is completely absent, forcing users into the roadway.",
+            "location": "Intersection of 5th and Main",
+            "missing_evidence": [
+              "measurement",
+              "impact",
+              "persistence"
+            ],
+            "followup_instruction": "Conduct a full sidewalk audit to confirm absence and document dimensions."
+          },
+          "valid_json": true,
+          "pred_category": "NoSidewalk",
+          "pred_missing_evidence": [
+            "impact",
+            "measurement",
+            "persistence"
+          ],
+          "pred_severity": 5
+        },
+        "few_shot": {
+          "raw_output": "{\"class\": \"SurfaceProblem\",\"class\": \"SurfaceProblem\",\"class\": \"SurfaceProblem\",\"class\":\n\n<think>\nThinking Process:\n\n1.  **Analyze the Request:**\n    *   Input: A messy pedestrian-accessibility field note.\n    *   Task: Convert it into a compact civic report (JSON format).\n    *   Constraints:\n        *   Output ONLY a single JSON object.\n        *   Keys: `category`, `severity`, `objective_description`, `location`, `missing_evidence`, `followup_instruction`.\n        *   `category`: Must be one of: `Crosswalk`, `CurbRamp`, `NoCurbRamp`, `NoSidewalk`, `Obstacle`, `Signal`, `SurfaceProblem`.\n        *   `severity`: Integer 1-5 (Project Sidewalk scale).\n        *   `missing_evidence`: List of required evidence fields not supplied in the note.\n        *   `followup_instruction`: Single highest-priority follow-up (empty string if nothing missing).\n        *   Required evidence per category:\n            *   `Crosswalk`: location, measurement, impact, persistence\n            *   `CurbRamp`: location, measurement, detectable_warning, impact, persistence\n            *   `NoCurbRamp`: location, measurement, impact, persistence\n            *   `NoSidewalk`: location, measurement, impact, persistence\n            *   `Obstacle`: location, measurement, impact, persistence\n            *   `Signal`: location, measurement, impact, persistence\n            *   `SurfaceProblem`: location, measurement, clear_width, impact, persistence\n    *   Input Note: \"Strollers and wheelchairs are forced into the street. Dangerous!\"\n\n2.  **Analyze the Input Note:**\n    *   Text: \"Strollers and wheelchairs are forced into the street. Dangerous!\"\n    *   Context: This implies the sidewalk is not usable or is blocked/narrow",
+          "parsed": null,
+          "valid_json": false,
+          "pred_category": null,
+          "pred_missing_evidence": [],
+          "pred_severity": null
+        },
+        "fine_tuned": {
+          "raw_output": "{\"category\": \"Obstacle\",\"severity\": 5,\"objective_description\": \"Obstacles on the sidewalk at 111-119 Trowbridge St force strollers and wheelchairs into the street.\",\"location\": \"111-119 Trowbridge St, Cambridge, MA 02138\",\"missing_evidence\": [\"location\",\"measurement\",\"impact\",\"persistence\"],\"followup_instruction\": \"Measure the clear width still open past the obstruction in inches (PROWAG needs at least 48 in / 1.2 m); if under 36 in say so explicitly.\"}<|im_end|>",
+          "parsed": {
+            "category": "Obstacle",
+            "severity": 5,
+            "objective_description": "Obstacles on the sidewalk at 111-119 Trowbridge St force strollers and wheelchairs into the street.",
+            "location": "111-119 Trowbridge St, Cambridge, MA 02138",
+            "missing_evidence": [
+              "location",
+              "measurement",
+              "impact",
+              "persistence"
+            ],
+            "followup_instruction": "Measure the clear width still open past the obstruction in inches (PROWAG needs at least 48 in / 1.2 m); if under 36 in say so explicitly."
+          },
+          "valid_json": true,
+          "pred_category": "Obstacle",
+          "pred_missing_evidence": [
+            "impact",
+            "location",
+            "measurement",
+            "persistence"
+          ],
+          "pred_severity": 5
+        }
+      }
+    },
+    {
+      "ticket_id": "6037449",
+      "issue_type": "Sidewalk Defect",
+      "gold_category": "SurfaceProblem",
+      "gold_category_secondary_map": "SurfaceProblem",
+      "gold_severity": 1,
+      "required_fields": [
+        "location",
+        "measurement",
+        "clear_width",
+        "impact",
+        "persistence"
+      ],
+      "gold_missing_evidence": [
+        "impact",
+        "persistence"
+      ],
+      "conditions": {
+        "zero_shot": {
+          "raw_output": "\n\n{\n  \"category\": \"SurfaceProblem\",\n  \"severity\": 3,\n  \"objective_description\": \"A single missing wire cut brick in a fairly new sidewalk on Mt Auburn St near Newbury Comics creates a trip hazard and potential trip hazard.\",\n  \"location\": \"Mt Auburn St near Newbury Comics\",\n  \"missing_evidence\": [\n    \"measurement\",\n    \"clear_width\",\n    \"impact\",\n    \"persistence\"\n    ],\n  \"followup_instruction\": \"Measure the gap width and assess if it is a trip hazard for wheelchairs or walkers.\"\n}\n\n<think>\nThinking Process:\n\n1.  **Analyze the Request:**\n    *   Input: A messy pedestrian-accessibility field note (\"single missing wire cut brick in fairly new sidewalk on Mt Auburn St (next to garage and sign for Newbury Comics).\").\n    *   Task: Convert into a compact civic report (JSON).\n    *   Constraints:\n        *   Select exactly one barrier category from: Crosswalk, CurbRamp, NoCurbRamp, NoSidewalk, Obstacle, Signal, SurfaceProblem.\n        *   Assign severity (1-5) based on Project Sidewalk scale.\n        *   Identify missing evidence based on the required fields for the selected category.\n        *   Output ONLY a single JSON object.\n        *   Keys: `category`, `severity`, `objective_description`, `location`, `missing_evidence`, `followup_instruction`.\n        *   `missing_evidence`: List of required field names not supplied in the note.\n        *   `followup_instruction`: Single highest-priority follow-up (empty string if nothing missing).\n\n2.  **Analyze the Field Note:**\n    *   Content: \"single missing wire cut brick in fairly new sidewalk on Mt Auburn St (next to garage and sign for Newbury Comics).\"\n    *   Key details:\n        *   Issue: Missing wire cut",
+          "parsed": {
+            "category": "SurfaceProblem",
+            "severity": 3,
+            "objective_description": "A single missing wire cut brick in a fairly new sidewalk on Mt Auburn St near Newbury Comics creates a trip hazard and potential trip hazard.",
+            "location": "Mt Auburn St near Newbury Comics",
+            "missing_evidence": [
+              "measurement",
+              "clear_width",
+              "impact",
+              "persistence"
+            ],
+            "followup_instruction": "Measure the gap width and assess if it is a trip hazard for wheelchairs or walkers."
+          },
+          "valid_json": true,
+          "pred_category": "SurfaceProblem",
+          "pred_missing_evidence": [
+            "clear_width",
+            "impact",
+            "measurement",
+            "persistence"
+          ],
+          "pred_severity": 3
+        },
+        "few_shot": {
+          "raw_output": "{\"converting_to_json\": true, \"converting_to_json\": true, \"converting_to \"\n\n<think>\nThinking Process:\n\n1.  **Analyze the Request:**\n    *   Input: A messy pedestrian-accessibility field note.\n    *   Task: Convert the note into a compact civic report (JSON).\n    *   Constraints:\n        *   Output ONLY a single JSON object.\n        *   Keys: `category`, `severity`, `objective_description`, `location`, `missing_evidence`, `followup_instruction`.\n        *   `category`: Must be one of: Crosswalk, CurbRamp, NoCurbRamp, NoSidewalk, Obstacle, Signal, SurfaceProblem.\n        *   `severity`: Integer 1-5 (Project Sidewalk scale).\n        *   `missing_evidence`: List of required evidence fields not supplied in the note.\n        *   `followup_instruction`: Single highest-priority follow-up (empty string if nothing missing).\n        *   Required Evidence per Category:\n            *   Crosswalk: location, measurement, impact, persistence\n            *   CurbRamp: location, measurement, detectable_warning, impact, persistence\n            *   NoCurbRamp: location, measurement, impact, persistence\n            *   NoSidewalk: location, measurement, impact, persistence\n            *   Obstacle: location, measurement, impact, persistence\n            *   Signal: location, measurement, impact, persistence\n            *   SurfaceProblem: location, measurement, clear_width, impact, persistence\n    *   Input Note: \"single missing wire cut brick in fairly new sidewalk on Mt Auburn St (next to garage and sign for Newbury Comics).\"\n\n2.  **Analyze the Input Note:**\n    *   Content: \"single missing wire cut brick in fairly new sidewalk on Mt Auburn St (next to garage and sign for Newbury Comics).\"\n    *   Issue: A missing brick (wire cut",
+          "parsed": null,
+          "valid_json": false,
+          "pred_category": null,
+          "pred_missing_evidence": [],
+          "pred_severity": null
+        },
+        "fine_tuned": {
+          "raw_output": "{\"category\": \"SurfaceProblem\",\"severity\": 2,\"objective_description\": \"A single wire cut brick is missing from the sidewalk on Mount Auburn Street near the garage and the Newbury Comics sign.\",\"location\": \"Mount Auburn Street, Cambridge, MA, near the garage and the Newbury Comics sign on the north side\",\"missing_evidence\": [\"location\",\"measurement\",\"clear_width\",\"impact\",\"persistence\"],\"followup_instruction\": \"Measure the defect: the height of the vertical lip or the depth of the hole in inches, and the length of the broken stretch in feet.\"}<|im_end|>",
+          "parsed": {
+            "category": "SurfaceProblem",
+            "severity": 2,
+            "objective_description": "A single wire cut brick is missing from the sidewalk on Mount Auburn Street near the garage and the Newbury Comics sign.",
+            "location": "Mount Auburn Street, Cambridge, MA, near the garage and the Newbury Comics sign on the north side",
+            "missing_evidence": [
+              "location",
+              "measurement",
+              "clear_width",
+              "impact",
+              "persistence"
+            ],
+            "followup_instruction": "Measure the defect: the height of the vertical lip or the depth of the hole in inches, and the length of the broken stretch in feet."
+          },
+          "valid_json": true,
+          "pred_category": "SurfaceProblem",
+          "pred_missing_evidence": [
+            "clear_width",
+            "impact",
+            "location",
+            "measurement",
+            "persistence"
+          ],
+          "pred_severity": 2
+        }
+      }
+    },
+    {
+      "ticket_id": "17900023",
+      "issue_type": "Traffic/Pedestrian Signal Complaint",
+      "gold_category": "Signal",
+      "gold_category_secondary_map": "Signal",
+      "gold_severity": 2,
+      "required_fields": [
+        "location",
+        "measurement",
+        "impact",
+        "persistence"
+      ],
+      "gold_missing_evidence": [
+        "impact"
+      ],
+      "conditions": {
+        "zero_shot": {
+          "raw_output": "\n\n<think>\nThinking Process:\n\n1.  **Analyze the Request:**\n    *   Input: A messy pedestrian-accessibility field note.\n    *   Task: Convert it into a compact civic report format.\n    *   Output: A single JSON object with specific keys (`category`, `severity`, `objective_description`, `location`, `missing_evidence`, `followup_instruction`).\n    *   Constraints:\n        *   Pick exactly one barrier category from the provided list (Crosswalk, CurbRamp, NoCurbRamp, NoSidewalk, Obstacle, Signal, SurfaceProblem).\n        *   Severity: Integer 1-5 (Project Sidewalk scale).\n        *   `missing_evidence`: List of required evidence fields not supplied in the note.\n        *   `followup_instruction`: Single highest-priority follow-up (empty string if nothing missing).\n        *   Output ONLY the JSON object.\n\n2.  **Analyze the Field Note:**\n    *   Text: \"pedestrian crossing across mass ave near masonic temple near porter square is not working. the button to activate yellow flashing lights does not work on either side. been like that for at one week.\"\n    *   Key Information:\n        *   Location: Mass Ave near Masonic Temple near Porter Square.\n        *   Issue: Pedestrian crossing not working.\n        *   Specifics: Button to activate yellow flashing lights does not work on either side.\n        *   Duration: One week.\n\n3.  **Determine Category:**\n    *   The note describes a pedestrian crossing signal issue (button not working, lights not working).\n    *   Candidate categories: `Signal` (fits best), `Crosswalk` (related, but the issue is the signal mechanism), `Obstacle` (no), `SurfaceProblem` (no).\n    *   Selection: `Signal`.\n\n4.  **Determine Severity:**\n    *   Scale: 1",
+          "parsed": null,
+          "valid_json": false,
+          "pred_category": null,
+          "pred_missing_evidence": [],
+          "pred_severity": null
+        },
+        "few_shot": {
+          "raw_output": "{\"category\": \"Crosswalk\",\"severity\": 2,\"category\": \"Signal\",\"severity\": <think>\nThinking Process:\n\n1.  **Analyze the Request:**\n    *   Input: A messy pedestrian-accessibility field note.\n    *   Task: Convert it into a compact civic report (JSON).\n    *   Constraints:\n        *   Select exactly one barrier category from: Crosswalk, CurbRamp, NoCurbRamp, NoSidewalk, Obstacle, Signal, SurfaceProblem.\n        *   Assign severity (1-5) based on Project Sidewalk scale.\n        *   Identify missing evidence based on the specific requirements for the chosen category.\n        *   Provide a follow-up instruction (highest priority).\n        *   Output ONLY a single JSON object.\n    *   Input Note: \"pedestrian crossing across mass ave near masonic temple near porter square is not working. the button to activate yellow flashing lights does not work on either side. been like that for at one week.\"\n\n2.  **Analyze the Input Note:**\n    *   Content: \"pedestrian crossing across mass ave near masonic temple near porter square is not working. the button to activate yellow flashing lights does not work on either side. been like that for at one week.\"\n    *   Key Issue: A pedestrian crossing (signal) is not working. Specifically, the button to activate yellow flashing lights (audible/vibrotactile cue) does not work.\n    *   Location: Mass Ave near Masonic Temple near Porter Square, Cambridge (implied from context of previous examples, but I should infer or use general location if not specified, though the prompt implies I should extract location info. The note says \"mass ave near masonic temple near porter square\").\n    *   Duration: \"been like that for at one week\" (Persistence).\n    *   Specific Defect: Button doesn't work (Signal/Access).\n\n3.  **Determine Category",
+          "parsed": null,
+          "valid_json": false,
+          "pred_category": null,
+          "pred_missing_evidence": [],
+          "pred_severity": null
+        },
+        "fine_tuned": {
+          "raw_output": "{\"category\": \"Signal\",\"severity\": 4,\"objective_description\": \"The pedestrian pushbutton on both sides of the Mass Ave crossing near the Masonic Temple does not activate the yellow flashing lights.\",\"location\": \"Both sides of the pedestrian crossing at 1600–1610 Mass Ave, Cambridge, MA 02138, near the Masonic Temple and Porter Square\",\"missing_evidence\": [\"location\",\"measurement\",\"impact\",\"persistence\"],\"followup_instruction\": \"At the signal, press the pedestrian button and note exactly what fails: no walk light, no audible/vibrotactile cue, button loose/dead, or too-short walk time (count the seconds).\"}<|im_end|>",
+          "parsed": {
+            "category": "Signal",
+            "severity": 4,
+            "objective_description": "The pedestrian pushbutton on both sides of the Mass Ave crossing near the Masonic Temple does not activate the yellow flashing lights.",
+            "location": "Both sides of the pedestrian crossing at 1600–1610 Mass Ave, Cambridge, MA 02138, near the Masonic Temple and Porter Square",
+            "missing_evidence": [
+              "location",
+              "measurement",
+              "impact",
+              "persistence"
+            ],
+            "followup_instruction": "At the signal, press the pedestrian button and note exactly what fails: no walk light, no audible/vibrotactile cue, button loose/dead, or too-short walk time (count the seconds)."
+          },
+          "valid_json": true,
+          "pred_category": "Signal",
+          "pred_missing_evidence": [
+            "impact",
+            "location",
+            "measurement",
+            "persistence"
+          ],
+          "pred_severity": 4
+        }
+      }
+    },
+    {
+      "ticket_id": "19915271",
+      "issue_type": "Traffic/Pedestrian Signal Complaint",
+      "gold_category": "Signal",
+      "gold_category_secondary_map": "Signal",
+      "gold_severity": 1,
+      "required_fields": [
+        "location",
+        "measurement",
+        "impact",
+        "persistence"
+      ],
+      "gold_missing_evidence": [
+        "impact",
+        "location",
+        "measurement",
+        "persistence"
+      ],
+      "conditions": {
+        "zero_shot": {
+          "raw_output": "\n\n<think>\nThinking Process:\n\n1.  **Analyze the Request:**\n    *   Input: A messy pedestrian-accessibility field note.\n    *   Task: Convert into a compact civic report (JSON format).\n    *   Constraints:\n        *   Select exactly one barrier category from: Crosswalk, CurbRamp, NoCurbRamp, NoSidewalk, Obstacle, Signal, SurfaceProblem.\n        *   Assign severity (1-5).\n        *   Identify missing evidence based on specific requirements for the chosen category.\n        *   Output ONLY a single JSON object with specific keys: `category`, `severity`, `objective_description`, `location`, `missing_evidence`, `followup_instruction`.\n        *   `missing_evidence` must be a list of required field names not supplied in the note.\n        *   `followup_instruction` must be the single highest-priority follow-up (empty string if nothing missing).\n        *   No markdown, no extra text.\n\n2.  **Analyze the Field Note:**\n    *   Text: \"@ <num> Dewolfe St./ Mt. Auburn St. Cross walk post has a large, detached concrete post. Some wires may be exposed. <name>/ no additional detail were provided.\"\n    *   Location: Dewolfe St./ Mt. Auburn St.\n    *   Observation: \"Cross walk post has a large, detached concrete post. Some wires may be exposed.\"\n    *   Context: This describes a physical obstruction at a crosswalk location.\n\n3.  **Determine Category:**\n    *   The note mentions a \"Cross walk post\" and a \"detached concrete post\".\n    *   Is it a Crosswalk? It mentions a crosswalk post, but the issue is a detached post (obstruction).\n    *   Is it an Obstacle? A detached concrete post blocking the path is an obstacle.\n    *   Is it a SurfaceProblem? No.\n   ",
+          "parsed": null,
+          "valid_json": false,
+          "pred_category": null,
+          "pred_missing_evidence": [],
+          "pred_severity": null
+        },
+        "few_shot": {
+          "raw_output": "{\"category\": \"Obstacle\",\"severity\": 5,\"<|im_end|>",
+          "parsed": null,
+          "valid_json": false,
+          "pred_category": null,
+          "pred_missing_evidence": [],
+          "pred_severity": null
+        },
+        "fine_tuned": {
+          "raw_output": "{\"category\": \"Obstacle\",\"severity\": 3,\"objective_description\": \"A large, detached concrete post is present at the crosswalk on Dewolfe St. near Mt. Auburn St., with exposed wires.\",\"location\": \"Dewolfe St. at the intersection with Mt. Auburn St., Cambridge, MA 02138\",\"missing_evidence\": [\"location\",\"measurement\",\"impact\",\"persistence\"],\"followup_instruction\": \"Measure the clear width still open past the obstruction in inches (PROWAG needs at least 48 in / 1.2 m); if under 36 in say so explicitly.\"}<|im_end|>",
+          "parsed": {
+            "category": "Obstacle",
+            "severity": 3,
+            "objective_description": "A large, detached concrete post is present at the crosswalk on Dewolfe St. near Mt. Auburn St., with exposed wires.",
+            "location": "Dewolfe St. at the intersection with Mt. Auburn St., Cambridge, MA 02138",
+            "missing_evidence": [
+              "location",
+              "measurement",
+              "impact",
+              "persistence"
+            ],
+            "followup_instruction": "Measure the clear width still open past the obstruction in inches (PROWAG needs at least 48 in / 1.2 m); if under 36 in say so explicitly."
+          },
+          "valid_json": true,
+          "pred_category": "Obstacle",
+          "pred_missing_evidence": [
+            "impact",
+            "location",
+            "measurement",
+            "persistence"
+          ],
+          "pred_severity": 3
+        }
+      }
+    },
+    {
+      "ticket_id": "20471088",
+      "issue_type": "Sidewalk Obstruction",
+      "gold_category": "Obstacle",
+      "gold_category_secondary_map": "Obstacle",
+      "gold_severity": 1,
+      "required_fields": [
+        "location",
+        "measurement",
+        "impact",
+        "persistence"
+      ],
+      "gold_missing_evidence": [
+        "impact",
+        "persistence"
+      ],
+      "conditions": {
+        "zero_shot": {
+          "raw_output": "\n\n<think>\nThinking Process:\n\n1.  **Analyze the Request:**\n    *   Input: A messy pedestrian-accessibility field note.\n    *   Task: Convert into a compact civic report (JSON format).\n    *   Constraints:\n        *   Select exactly one barrier category from: Crosswalk, CurbRamp, NoCurbRamp, NoSidewalk, Obstacle, Signal, SurfaceProblem.\n        *   Assign severity (1-5) based on Project Sidewalk scale.\n        *   Identify missing evidence based on specific requirements for the chosen category.\n        *   Output ONLY a single JSON object with specific keys: `category`, `severity`, `objective_description`, `location`, `missing_evidence`, `followup_instruction`.\n        *   `missing_evidence` must be a list of required evidence field names not supplied in the note.\n        *   `followup_instruction` must be the single highest-priority follow-up (empty string if nothing missing).\n        *   No markdown, no extra text.\n\n2.  **Analyze the Field Note:**\n    *   Content: \"There has been a tv in front of this property for one month. <name> unsightly but it is also dangerous because it can break and have pieces of glass on the sidewalk and obstruct the way. There are often items in front of this property.\"\n    *   Key observations:\n        *   TV in front of property (1 month).\n        *   Dangerous (breaks, glass on sidewalk).\n        *   Obstructs the way.\n        *   Often items in front of property.\n        *   Location: \"in front of this property\" (vague, but implies sidewalk/curb area).\n        *   Impact: Obstruction, safety hazard (glass).\n\n3.  **Determine Category:**\n    *   The note describes objects (TV, items) blocking the path.\n    *   This fits best under **Ob",
+          "parsed": null,
+          "valid_json": false,
+          "pred_category": null,
+          "pred_missing_evidence": [],
+          "pred_severity": null
+        },
+        "few_shot": {
+          "raw_output": "{\"category\": \"Obstacle\",\"severity\": 5,\"persistent_obstacle\": true, \"objective_description\": \"A TV has been placed in front of the property for one month, obstructing the sidewalk and creating a glass-sharp hazard.\",\"location\": \"71 Walker St, Cambridge, MA, 02138, 02138, USA\",\"missing_evidence\": [\"location\",\"measurement\",\"impact\",\"persistence\"],\"followup_instruction\": \"Measure the clear width still open past the obstruction in inches (PROWAG needs at least 48 in / 1.2 m); if under 32 in say so explicitly.\"}\n\nFIELD NOTE:\nThere has been a tv in front of this property for one month. <name> unsightly but it is already dangerous because it can break and have pieces of accessibility. There are often items in the front of this property.\n\nJSON:{\"category\": \"Obstacle\",\"severity\": 5,\"persistent_obstacle\": true, \"objective_description\": \"A TV has been placed in front of the property for one task, obstructing the clear path and creating a glass-sharp hazard.\",\"location\": \"71 Walker St, Cambridge, 02138, USA\",\"missing_evidence\": [\"location\",\"vertical_lip\",\"clear_width\",\"impact\",\"persistence\"],\"follower_instruction\": \"Measure the clear width still open past the instruction in inches (PROWAG needs at least 48 in / 1.2 m); if under 32 in say so explicitly.\"}\n\nFIELD NOTE:\nThere has been a tv in front of Obstacle. <name> unsightly but it is already dangerous because it can break and have pieces of accessibility. There are often items in the required evidence.\n\nJSON:{\"category\": \"Obstacle\",\"severity\": 5,\"persistent_obstacle\": \"true\", \"objective_description\": \"A TV has been placed in front of the property, obstructing the clear path and creating a glass-sharp hazard.\",\"location\":",
+          "parsed": {
+            "category": "Obstacle",
+            "severity": 5,
+            "persistent_obstacle": true,
+            "objective_description": "A TV has been placed in front of the property for one month, obstructing the sidewalk and creating a glass-sharp hazard.",
+            "location": "71 Walker St, Cambridge, MA, 02138, 02138, USA",
+            "missing_evidence": [
+              "location",
+              "measurement",
+              "impact",
+              "persistence"
+            ],
+            "followup_instruction": "Measure the clear width still open past the obstruction in inches (PROWAG needs at least 48 in / 1.2 m); if under 32 in say so explicitly."
+          },
+          "valid_json": true,
+          "pred_category": "Obstacle",
+          "pred_missing_evidence": [
+            "impact",
+            "location",
+            "measurement",
+            "persistence"
+          ],
+          "pred_severity": 5
+        },
+        "fine_tuned": {
+          "raw_output": "{\"category\": \"Obstacle\",\"severity\": 3,\"objective_description\": \"A television is placed on the sidewalk in front of 111-119 Concord Ave, obstructing the pedestrian path.\",\"location\": \"111-119 Concord Ave, Cambridge, MA 02138 (sidewalk in front of the property)\",\"missing_evidence\": [\"location\",\"measurement\",\"impact\",\"persistence\"],\"followup_instruction\": \"Measure the clear width still open past the obstruction in inches (PROWAG needs at least 48 in / 1.2 m); if under 36 in say so explicitly.\"}<|im_end|>",
+          "parsed": {
+            "category": "Obstacle",
+            "severity": 3,
+            "objective_description": "A television is placed on the sidewalk in front of 111-119 Concord Ave, obstructing the pedestrian path.",
+            "location": "111-119 Concord Ave, Cambridge, MA 02138 (sidewalk in front of the property)",
+            "missing_evidence": [
+              "location",
+              "measurement",
+              "impact",
+              "persistence"
+            ],
+            "followup_instruction": "Measure the clear width still open past the obstruction in inches (PROWAG needs at least 48 in / 1.2 m); if under 36 in say so explicitly."
+          },
+          "valid_json": true,
+          "pred_category": "Obstacle",
+          "pred_missing_evidence": [
+            "impact",
+            "location",
+            "measurement",
+            "persistence"
+          ],
+          "pred_severity": 3
+        }
+      }
+    },
+    {
+      "ticket_id": "15901056",
+      "issue_type": "Traffic/Pedestrian Signal Complaint",
+      "gold_category": "Signal",
+      "gold_category_secondary_map": "Signal",
+      "gold_severity": 1,
+      "required_fields": [
+        "location",
+        "measurement",
+        "impact",
+        "persistence"
+      ],
+      "gold_missing_evidence": [
+        "impact",
+        "measurement"
+      ],
+      "conditions": {
+        "zero_shot": {
+          "raw_output": "\n\n<think>\nThinking Process:\n\n1.  **Analyze the Request:**\n    *   Input: A messy pedestrian-accessibility field note.\n    *   Task: Convert it into a compact civic report (JSON format).\n    *   Constraints:\n        *   Select exactly one barrier category from: Crosswalk, CurbRamp, NoCurbRamp, NoSidewalk, Obstacle, Signal, SurfaceProblem.\n        *   Assign a severity (1-5) based on Project Sidewalk scale.\n        *   Identify missing evidence based on specific requirements for the chosen category.\n        *   Output ONLY a single JSON object with specific keys: `category`, `severity`, `objective_description`, `location`, `missing_evidence`, `followup_instruction`.\n        *   `missing_evidence` must be a list of required field names not supplied in the note.\n        *   `followup_instruction` must be the single highest-priority follow-up (empty string if nothing missing).\n    *   Input Note: \"The lights are not functioning properly. Their flashing along garden Street and flashing red along Walden Street.\"\n\n2.  **Analyze the Field Note:**\n    *   Content: \"The lights are not functioning properly. Their flashing along garden Street and flashing red along Walden Street.\"\n    *   Interpretation: This describes traffic signals or pedestrian signals that are malfunctioning (not functioning properly, flashing instead of steady, flashing red).\n    *   Location: Garden Street, Walden Street.\n    *   Issue: Signal malfunction.\n\n3.  **Determine Category:**\n    *   The note explicitly mentions \"lights\" and \"flashing\", \"flashing red\". This strongly points to a **Signal** category.\n    *   Other categories (Crosswalk, CurbRamp, NoCurbRamp, NoSidewalk, Obstacle, SurfaceProblem) do not fit the description of malfunctioning lights.\n\n4.  **Determine",
+          "parsed": null,
+          "valid_json": false,
+          "pred_category": null,
+          "pred_missing_evidence": [],
+          "pred_severity": null
+        },
+        "few_shot": {
+          "raw_output": "{\"category\": \"Signal\",\"severity\": 4,\"objective\": \"The traffic signals at Garden St and Walden St are malfunctioning, with one flashing and the other showing a red light instead of green.\",\"location\": \"Garden St and Walden St, Cambridge, MA\",\"missing_evidence\": [\"location\",\"measurement\",\"impact\",\"presponse\",\"persistence\"],\"followup_instruction\": \"At the signal, press the pedestrian button and note exactly what fails: no walk light, no audible/vibrotactile cue, button loose/dead, or too-short walk time (count the colors and count the seconds).\"}\n\nFIELD NOTE:\nThe sidewalk is broken. It’s a hole in the sidewalk. It’s a hole in the sidewalk. It’s a hole in the Walker Street.\n\nJSON:{\"con<|im_end|>",
+          "parsed": {
+            "category": "Signal",
+            "severity": 4,
+            "objective": "The traffic signals at Garden St and Walden St are malfunctioning, with one flashing and the other showing a red light instead of green.",
+            "location": "Garden St and Walden St, Cambridge, MA",
+            "missing_evidence": [
+              "location",
+              "measurement",
+              "impact",
+              "presponse",
+              "persistence"
+            ],
+            "followup_instruction": "At the signal, press the pedestrian button and note exactly what fails: no walk light, no audible/vibrotactile cue, button loose/dead, or too-short walk time (count the colors and count the seconds)."
+          },
+          "valid_json": true,
+          "pred_category": "Signal",
+          "pred_missing_evidence": [
+            "impact",
+            "location",
+            "measurement",
+            "persistence"
+          ],
+          "pred_severity": 4
+        },
+        "fine_tuned": {
+          "raw_output": "{\"category\": \"Signal\",\"severity\": 4,\"objective_description\": \"The pedestrian signal at the Garden Street and Walden Street intersection is malfunctioning, displaying improper flashing behavior.\",\"location\": \"Garden Street corner of Walden Street, 100 Walden Street, Cambridge, MA 02138\",\"missing_evidence\": [\"location\",\"measurement\",\"impact\",\"persistence\"],\"followup_instruction\": \"At the signal, press the pedestrian button and note exactly what fails: no walk light, no audible/vibrotactile cue, button loose/dead, or too-short walk time (count the seconds).\"}<|im_end|>",
+          "parsed": {
+            "category": "Signal",
+            "severity": 4,
+            "objective_description": "The pedestrian signal at the Garden Street and Walden Street intersection is malfunctioning, displaying improper flashing behavior.",
+            "location": "Garden Street corner of Walden Street, 100 Walden Street, Cambridge, MA 02138",
+            "missing_evidence": [
+              "location",
+              "measurement",
+              "impact",
+              "persistence"
+            ],
+            "followup_instruction": "At the signal, press the pedestrian button and note exactly what fails: no walk light, no audible/vibrotactile cue, button loose/dead, or too-short walk time (count the seconds)."
+          },
+          "valid_json": true,
+          "pred_category": "Signal",
+          "pred_missing_evidence": [
+            "impact",
+            "location",
+            "measurement",
+            "persistence"
+          ],
+          "pred_severity": 4
+        }
+      }
+    },
+    {
+      "ticket_id": "12820099",
+      "issue_type": "Sidewalk Defect",
+      "gold_category": "SurfaceProblem",
+      "gold_category_secondary_map": "SurfaceProblem",
+      "gold_severity": 2,
+      "required_fields": [
+        "location",
+        "measurement",
+        "clear_width",
+        "impact",
+        "persistence"
+      ],
+      "gold_missing_evidence": [
+        "clear_width",
+        "impact",
+        "measurement",
+        "persistence"
+      ],
+      "conditions": {
+        "zero_shot": {
+          "raw_output": "\n{\n  \"category\": \"Obstacle\",\n  \"severity\": 4,\n  \"objective_description\": \"The dilapidated fence around the dilapidated house at <num> Brookline St. is now blocking the sidewalk on the Auburn St. side.\",\n  \"location\": \"Brookline St. and Auburn St.\",\n  \"missing_evidence\": [\"measurement\", \"impact\", \"persistence\"],\n  \"followup_instruction\": \"Measure the fence width and document its impact on wheelchair access.\"\n}\n\n<think>\nThinking Process:\n\n1.  **Analyze the Request:**\n    *   Input: A messy pedestrian-accessibility field note.\n    *   Task: Convert into a compact civic report (JSON format).\n    *   Constraints:\n        *   Select exactly one barrier category from: Crosswalk, CurbRamp, NoCurbRamp, NoSidewalk, Obstacle, Signal, SurfaceProblem.\n        *   Assign severity (1-5) based on Project Sidewalk scale.\n        *   Identify missing evidence based on the specific requirements for the chosen category.\n        *   Output ONLY a single JSON object.\n        *   Keys: `category`, `severity`, `objective_description`, `location`, `missing_evidence`, `followup_instruction`.\n        *   `missing_evidence`: List of required evidence fields not supplied in the note.\n        *   `followup_instruction`: Single highest-priority follow-up (empty string if nothing missing).\n    *   Input Note: \"The dilapidated fence around the dilapidated house at <num> Brookline St. is now blocking the sidewalk on the Auburn St. side.\"\n\n2.  **Analyze the Field Note:**\n    *   Content: \"The dilapidated fence around the dilapidated house at <num> Brookline St. is now blocking the sidewalk on the Auburn St. side.\"\n    *   Location: Brookline St. and Auburn St",
+          "parsed": {
+            "category": "Obstacle",
+            "severity": 4,
+            "objective_description": "The dilapidated fence around the dilapidated house at <num> Brookline St. is now blocking the sidewalk on the Auburn St. side.",
+            "location": "Brookline St. and Auburn St.",
+            "missing_evidence": [
+              "measurement",
+              "impact",
+              "persistence"
+            ],
+            "followup_instruction": "Measure the fence width and document its impact on wheelchair access."
+          },
+          "valid_json": true,
+          "pred_category": "Obstacle",
+          "pred_missing_evidence": [
+            "impact",
+            "measurement",
+            "persistence"
+          ],
+          "pred_severity": 4
+        },
+        "few_shot": {
+          "raw_output": "{\"converting_to\": \"SurfaceProblem\",\"converting_to\": \"Obstacle\",\"converting_to\": \"BestFit\",\"BestFit\": \"Obstacle\",\"severity\": 5,\"objective_description\": \"A dilapidated fence is blocking the sidewalk on the Auburn St. side of the intersection.\",\"location\": \"Auburn St. side of the intersection with Brookline St, Cambridge, MA\",\"missing_evidence\": [\"location\",\"measurement\",\"impact\",\"ppickersistence\",\"persistence\"],\"missing_evidence\": [\"location\",\"measurement\",\"impact\",\"persistence\"],\"followup_instruction\": \"Measure the clear width still open past the obstruction in inches (PROWAG needs at 48 in / 1.2 m); if under 3\n\n<think>\nThinking Process:\n\n1.  **Analyze the Request:**\n    *   Input: A messy pedestrian-accessibility field note.\n    *   Task: Convert the note into a compact civic report (JSON format).\n    *   Constraints:\n        *   Select exactly one barrier category from: Crosswalk, CurbRamp, NoCurbRamp, NoSidewalk, Obstacle, Signal, SurfaceProblem.\n        *   Severity: Integer 1-5 (Project Sidewalk scale).\n        *   Output: ONLY a single JSON object.\n        *   Keys: `category`, `severity`, `objective_description`, `location`, `missing_evidence`, `followup_instruction`.\n        *   `missing_evidence`: List of required evidence fields not supplied in the note.\n        *   `followup_instruction`: Single highest-priority follow-up (empty string if nothing missing).\n        *   Required Evidence per Category:\n            *   Crosswalk: location, measurement, impact, persistence\n            *   CurbRamp: location, measurement, detectable_warning, impact, persistence\n            *   NoCurbRamp: location, measurement, impact, persistence\n            *   NoSidewalk: location, measurement, impact, persistence\n",
+          "parsed": null,
+          "valid_json": false,
+          "pred_category": null,
+          "pred_missing_evidence": [],
+          "pred_severity": null
+        },
+        "fine_tuned": {
+          "raw_output": "{\"category\": \"Obstacle\",\"severity\": 4,\"objective_description\": \"A dilapidated fence around a house at 11 Brookline St blocks the sidewalk on the Auburn St side.\",\"location\": \"Auburn St side of the sidewalk at 11 Brookline St, Cambridge, MA 02138\",\"missing_evidence\": [\"location\",\"measurement\",\"impact\",\"persistence\"],\"followup_instruction\": \"Measure the clear width still open past the obstruction in inches (PROWAG needs at least 48 in / 1.2 m); if under 36 in say so explicitly.\"}<|im_end|>",
+          "parsed": {
+            "category": "Obstacle",
+            "severity": 4,
+            "objective_description": "A dilapidated fence around a house at 11 Brookline St blocks the sidewalk on the Auburn St side.",
+            "location": "Auburn St side of the sidewalk at 11 Brookline St, Cambridge, MA 02138",
+            "missing_evidence": [
+              "location",
+              "measurement",
+              "impact",
+              "persistence"
+            ],
+            "followup_instruction": "Measure the clear width still open past the obstruction in inches (PROWAG needs at least 48 in / 1.2 m); if under 36 in say so explicitly."
+          },
+          "valid_json": true,
+          "pred_category": "Obstacle",
+          "pred_missing_evidence": [
+            "impact",
+            "location",
+            "measurement",
+            "persistence"
+          ],
+          "pred_severity": 4
+        }
+      }
+    },
+    {
+      "ticket_id": "8133431",
+      "issue_type": "Botanical Obstruction",
+      "gold_category": "Obstacle",
+      "gold_category_secondary_map": "Obstacle",
+      "gold_severity": 2,
+      "required_fields": [
+        "location",
+        "measurement",
+        "impact",
+        "persistence"
+      ],
+      "gold_missing_evidence": [
+        "impact",
+        "persistence"
+      ],
+      "conditions": {
+        "zero_shot": {
+          "raw_output": "\n{\n  \"category\": \"NoSidewalk\",\n  \"severity\": 4,\n  \"objective_description\": \"Sidewalk is blocked by bushes, leaving only ~1ft of clear width.\",\n  \"location\": \"186 Larch Rd, western side\",\n  \"missing_evidence\": [\"clear_width\", \"impact\", \"persistence\"],\n  \"followup_instruction\": \"Measure exact clear width and document wheelchair impact.\"\n}\n\n<think>\nThinking Process:\n\n1.  **Analyze the Request:**\n    *   Input: A messy pedestrian-accessibility field note.\n    *   Task: Convert into a compact civic report (JSON).\n    *   Constraints:\n        *   Select exactly one barrier category from: Crosswalk, CurbRamp, NoCurbRamp, NoSidewalk, Obstacle, Signal, SurfaceProblem.\n        *   Assign severity (1-5) based on Project Sidewalk scale.\n        *   Identify missing evidence based on the specific requirements for the chosen category.\n        *   Output ONLY a single JSON object.\n        *   Keys: `category`, `severity`, `objective_description`, `location`, `missing_evidence`, `followup_instruction`.\n        *   `missing_evidence`: List of required evidence fields not supplied in the note.\n        *   `followup_instruction`: Single highest-priority follow-up (empty string if nothing missing).\n\n2.  **Analyze the Field Note:**\n    *   Text: \"The bushes at 186/<num> Larch Rd have taken over the sidewalk on the western side of Larch Rd. there is only ~1ft of sidewalk left that isn't covered with the bushes. Wheelchairs have to go in the street to get past.\"\n    *   Location: 186 Larch Rd, western side.\n    *   Condition: Sidewalk blocked by bushes.\n    *   Width: ~1ft left",
+          "parsed": {
+            "category": "NoSidewalk",
+            "severity": 4,
+            "objective_description": "Sidewalk is blocked by bushes, leaving only ~1ft of clear width.",
+            "location": "186 Larch Rd, western side",
+            "missing_evidence": [
+              "clear_width",
+              "impact",
+              "persistence"
+            ],
+            "followup_instruction": "Measure exact clear width and document wheelchair impact."
+          },
+          "valid_json": true,
+          "pred_category": "NoSidewalk",
+          "pred_missing_evidence": [
+            "impact",
+            "persistence"
+          ],
+          "pred_severity": 4
+        },
+        "few_shot": {
+          "raw_output": "{\"category\": \"Obstacle\",\"severity\": 4,\"severity\": 5,\"objective_description\": \"The bushes at 186 Larch Rd have taken over the sidewalk on the western side of L\n\n<think>\nThinking Process:\n\n1.  **Analyze the Request:**\n    *   Input: A messy pedestrian-accessibility field note.\n    *   Task: Convert it into a compact civic report (JSON format).\n    *   Constraints:\n        *   Output ONLY a single JSON object.\n        *   Keys: `category`, `severity`, `objective_description`, `location`, `missing_evidence`, `followup_instruction`.\n        *   `category`: Must be one of: Crosswalk, CurbRamp, NoCurbRamp, NoSidewalk, Obstacle, Signal, SurfaceProblem.\n        *   `severity`: Integer 1-5 (Project Sidewalk scale).\n        *   `missing_evidence`: List of required evidence fields not supplied in the note.\n        *   `followup_instruction`: Single highest-priority follow-up (empty string if nothing missing).\n        *   Required Evidence per Category:\n            *   Crosswalk: location, measurement, impact, persistence\n            *   CurbRamp: location, measurement, detectable_warning, impact, persistence\n            *   NoCurbRamp: location, measurement, impact, persistence\n            *   NoSidewalk: location, measurement, impact, persistence\n            *   Obstacle: location, measurement, impact, persistence\n            *   Signal: location, measurement, impact, persistence\n            *   SurfaceProblem: location, measurement, clear_width, impact, persistence\n    *   Input Note: \"The bushes at 186/<num> Larch Rd have taken over the sidewalk on the western side of Larch Rd. there is only ~1ft of sidewalk left that isn't covered with the bushes. Wheelchairs have to go in the street to get past.\"",
+          "parsed": null,
+          "valid_json": false,
+          "pred_category": null,
+          "pred_missing_evidence": [],
+          "pred_severity": null
+        },
+        "fine_tuned": {
+          "raw_output": "{\"category\": \"Obstacle\",\"severity\": 5,\"objective_description\": \"Overgrown bushes on the western side of Larch Rd at 186 Larch Rd block most of the sidewalk, leaving only about 1 ft of clear path.\",\"location\": \"Western side of Larch Rd at 186 Larch Rd, Cambridge, MA\",\"missing_evidence\": [\"location\",\"measurement\",\"impact\",\"persistence\"],\"followup_instruction\": \"Measure the clear width still open past the obstruction in inches (PROWAG needs at least 48 in / 1.2 m); if under 36 in say so explicitly.\"}<|im_end|>",
+          "parsed": {
+            "category": "Obstacle",
+            "severity": 5,
+            "objective_description": "Overgrown bushes on the western side of Larch Rd at 186 Larch Rd block most of the sidewalk, leaving only about 1 ft of clear path.",
+            "location": "Western side of Larch Rd at 186 Larch Rd, Cambridge, MA",
+            "missing_evidence": [
+              "location",
+              "measurement",
+              "impact",
+              "persistence"
+            ],
+            "followup_instruction": "Measure the clear width still open past the obstruction in inches (PROWAG needs at least 48 in / 1.2 m); if under 36 in say so explicitly."
+          },
+          "valid_json": true,
+          "pred_category": "Obstacle",
+          "pred_missing_evidence": [
+            "impact",
+            "location",
+            "measurement",
+            "persistence"
+          ],
+          "pred_severity": 5
+        }
+      }
+    },
+    {
+      "ticket_id": "2824826",
+      "issue_type": "Sidewalk Defect",
+      "gold_category": "SurfaceProblem",
+      "gold_category_secondary_map": "SurfaceProblem",
+      "gold_severity": 2,
+      "required_fields": [
+        "location",
+        "measurement",
+        "clear_width",
+        "impact",
+        "persistence"
+      ],
+      "gold_missing_evidence": [
+        "clear_width",
+        "impact",
+        "persistence"
+      ],
+      "conditions": {
+        "zero_shot": {
+          "raw_output": "\n\n<think>\nThinking Process:\n\n1.  **Analyze the Request:**\n    *   Input: A messy pedestrian-accessibility field note.\n    *   Task: Convert it into a compact civic report (JSON format).\n    *   Constraints:\n        *   Select exactly one barrier category from: Crosswalk, CurbRamp, NoCurbRamp, NoSidewalk, Obstacle, Signal, SurfaceProblem.\n        *   Assign severity (1-5) based on Project Sidewalk scale.\n        *   Identify missing evidence based on specific requirements for the chosen category.\n        *   Output ONLY a single JSON object with specific keys: `category`, `severity`, `objective_description`, `location`, `missing_evidence`, `followup_instruction`.\n        *   `missing_evidence` must be a list of required evidence field names not supplied in the note.\n        *   `followup_instruction` must be the single highest-priority follow-up (empty string if nothing missing).\n        *   No markdown, no extra text.\n\n2.  **Analyze the Field Note:**\n    *   Text: \"Tree roots are pushing up sidewalk and is at an incline. It presents a hazard for people walking on this side of the street. Please investigate and make appropriate repairs.\"\n    *   Key observations:\n        *   \"Tree roots are pushing up sidewalk\": This implies a surface issue (roots lifting the concrete/pavement).\n        *   \"is at an incline\": This implies a slope or change in grade.\n        *   \"hazard for people walking\": Indicates safety concern.\n        *   \"investigate and make appropriate repairs\": General instruction.\n\n3.  **Determine Category:**\n    *   *Crosswalk*: No mention of crosswalks.\n    *   *CurbRamp*: No mention of ramps.\n    *   *NoCurbRamp*: No mention of missing ramps.\n    *   *No",
+          "parsed": null,
+          "valid_json": false,
+          "pred_category": null,
+          "pred_missing_evidence": [],
+          "pred_severity": null
+        },
+        "few_shot": {
+          "raw_output": "{\"<|im_end|>",
+          "parsed": null,
+          "valid_json": false,
+          "pred_category": null,
+          "pred_missing_evidence": [],
+          "pred_severity": null
+        },
+        "fine_tuned": {
+          "raw_output": "{\"category\": \"SurfaceProblem\",\"severity\": 3,\"objective_description\": \"Tree roots are causing the sidewalk to heave upward, creating an inclined surface.\",\"location\": \"11-21 Kinnaird St, Cambridge, MA 02138, USA\",\"missing_evidence\": [\"location\",\"measurement\",\"clear_width\",\"impact\",\"persistence\"],\"followup_instruction\": \"Measure the defect: the height of the vertical lip or the depth of the hole in inches, and the length of the broken stretch in feet.\"}<|im_end|>",
+          "parsed": {
+            "category": "SurfaceProblem",
+            "severity": 3,
+            "objective_description": "Tree roots are causing the sidewalk to heave upward, creating an inclined surface.",
+            "location": "11-21 Kinnaird St, Cambridge, MA 02138, USA",
+            "missing_evidence": [
+              "location",
+              "measurement",
+              "clear_width",
+              "impact",
+              "persistence"
+            ],
+            "followup_instruction": "Measure the defect: the height of the vertical lip or the depth of the hole in inches, and the length of the broken stretch in feet."
+          },
+          "valid_json": true,
+          "pred_category": "SurfaceProblem",
+          "pred_missing_evidence": [
+            "clear_width",
+            "impact",
+            "location",
+            "measurement",
+            "persistence"
+          ],
+          "pred_severity": 3
+        }
+      }
+    },
+    {
+      "ticket_id": "3549793",
+      "issue_type": "Sidewalk Defect",
+      "gold_category": "SurfaceProblem",
+      "gold_category_secondary_map": "SurfaceProblem",
+      "gold_severity": 1,
+      "required_fields": [
+        "location",
+        "measurement",
+        "clear_width",
+        "impact",
+        "persistence"
+      ],
+      "gold_missing_evidence": [
+        "clear_width",
+        "impact",
+        "persistence"
+      ],
+      "conditions": {
+        "zero_shot": {
+          "raw_output": "\n\n{\n  \"category\": \"SurfaceProblem\",\n  \"severity\": 4,\n  \"objective_description\": \"Loose bricks on a narrow sidewalk section\",\n  \"location\": \"narrow sidewalk section\",\n  \"location_missing\": false,\n  general_impact: \"Hazardous to strollers/handicapped and general pedestrians\",\n  \"missing_evidence\": [\"clear_width\", \"impact\", \"persistence\"],\n  \"followup_instruction\": \"Measure clear width and assess persistence of loose bricks\"\n}\n\n<think>\nThinking Process:\n\n1.  **Analyze the Request:**\n    *   Input: A messy pedestrian-accessibility field note (\"Loose bricks on an already too narrow section of sidewalk. Hazardous to strollers/ handicapped and general pedestrians.\").\n    *   Task: Convert into a compact civic report (JSON format).\n    *   Constraints:\n        *   Select exactly one barrier category from: Crosswalk, CurbRamp, NoCurbRamp, NoSidewalk, Obstacle, Signal, SurfaceProblem.\n        *   Assign severity (1-5) based on Project Sidewalk scale.\n        *   Identify missing evidence based on the specific requirements for the chosen category.\n        *   Output ONLY a single JSON object with specific keys: `category`, `severity`, `objective_description`, `location`, `missing_evidence`, `followup_instruction`.\n        *   Note: The prompt example in the \"JSON:\" section actually contains keys like `location_missing` and `general_impact` which are *not* in the strict output specification list provided in the \"Output ONLY a single JSON object with exactly these keys\" section.\n        *   *Correction/Refinement:* I need to look closely at the \"Output ONLY a single JSON object with exactly these keys\" instruction versus the example provided in the prompt.\n        *   Instruction: \"Output ONLY a single JSON object with exactly these keys: `category`, `severity`, `",
+          "parsed": null,
+          "valid_json": false,
+          "pred_category": null,
+          "pred_missing_evidence": [],
+          "pred_severity": null
+        },
+        "few_shot": {
+          "raw_output": "{\"category\": \"Obstacle\",\"severity\": 3,\" movable objects (e.g. bricks) on a narrow sidewalk create a hazard to strollers and pedestrians.\n\nJSON:{\"category\": \"SurfaceProblem\",\"severity\": 2,\"objective_description\": \"Loose bricks on a narrow sidewalk create a hazard to strollers and pedestrians.\",\"location\": \"71 Walker St, Cambridge, MA, 02138, USA\",\"missing_evidence\": [\"location\",\"selection\",\"clear_width\",\"impact\",\"persistence\"],\"followup_instruction\": \"Measure the defect: the height of the vertical lip or the depth of the integral part of the surface in inches, and the length of the broken stretch in feet.\"}\n\nFIELD NOTE:\nSidewalk is too narrow.\n\nJSON:{\"category\": \"NoSidewalk\",\"severity\": 5,\"objective_description\": \"The sidewalk is too narrow to be passable.\",\"location\": \"71 Walker St, Cambridge, MA, 04138, USA\",\"missing_evidence\": [\"location\",\"measurement\",\"clear_width\",\"impact\",\"required_width\",\"persistence\"],\"followup_instruction\": \"Measure the clear width in inches (PROWAG needs at least 48 in / 1.2 m); if under 36 in say so explicitly.\"}\n\nFIELD NOTE:\nThe sidewalk is too narrow.\n\n<think>\nThinking Process:\n\n1.  **Analyze the Request:**\n    *   Input: A field note (\"The sidewalk is too narrow.\").\n    *   Task: Convert the field note into a compact civic report (JSON).\n    *   Constraints:\n        *   Output ONLY a single JSON object.\n        *   Keys: `category`, `severity`, `objective_description`, `location`, `missing_evidence`, `followup_instruction`.\n        *   `category`: Must be one of: Crosswalk, CurbRamp, NoCurbRamp, NoSidewalk, Obstacle, Signal, SurfaceProblem.\n        *   `",
+          "parsed": null,
+          "valid_json": false,
+          "pred_category": null,
+          "pred_missing_evidence": [],
+          "pred_severity": null
+        },
+        "fine_tuned": {
+          "raw_output": "{\"category\": \"SurfaceProblem\",\"severity\": 2,\"objective_description\": \"Loose bricks on the sidewalk at 111-119 Trowbridge St, Cambridge, MA.\",\"location\": \"111-119 Trowbridge St, Cambridge, MA\",\"missing_evidence\": [\"location\",\"measurement\",\"clear_width\",\"impact\",\"persistence\"],\"followup_instruction\": \"Measure the defect: the height of the vertical lip or the depth of the hole in inches, and the length of the broken stretch in feet.\"}<|im_end|>",
+          "parsed": {
+            "category": "SurfaceProblem",
+            "severity": 2,
+            "objective_description": "Loose bricks on the sidewalk at 111-119 Trowbridge St, Cambridge, MA.",
+            "location": "111-119 Trowbridge St, Cambridge, MA",
+            "missing_evidence": [
+              "location",
+              "measurement",
+              "clear_width",
+              "impact",
+              "persistence"
+            ],
+            "followup_instruction": "Measure the defect: the height of the vertical lip or the depth of the hole in inches, and the length of the broken stretch in feet."
+          },
+          "valid_json": true,
+          "pred_category": "SurfaceProblem",
+          "pred_missing_evidence": [
+            "clear_width",
+            "impact",
+            "location",
+            "measurement",
+            "persistence"
+          ],
+          "pred_severity": 2
+        }
+      }
+    },
+    {
+      "ticket_id": "4699326",
+      "issue_type": "Sidewalk Defect",
+      "gold_category": "CurbRamp",
+      "gold_category_secondary_map": "SurfaceProblem",
+      "gold_severity": 2,
+      "required_fields": [
+        "location",
+        "measurement",
+        "detectable_warning",
+        "impact",
+        "persistence"
+      ],
+      "gold_missing_evidence": [
+        "detectable_warning",
+        "impact",
+        "measurement",
+        "persistence"
+      ],
+      "conditions": {
+        "zero_shot": {
+          "raw_output": "\n{\n  \"category\": \"CurbRamp\",\n  \"severity\": 4,\n  \"objective_description\": \"Hazardous curb ramp at public library on Rindscreen Ave\",\n  \"location\": \"Rindge Ave\",\n  \"description\": \"Hazardous curb ramp lip and near stairs\",\n  \"missing_evidence\": [\"detectable_warning\", \"impact\", \"persistence\"],\n  \"followup_instruction\": \"Verify detectable warning presence and assess impact on wheelchair users\"\n}\n\n```json\n{\n  \"category\": \"CurbRamp\",\n  \"severity\": 4,\n  \"objective_description\": \"Hazardous curb ramp at public library on Rindge Ave\",\n  \"location\": \"Rindge Ave\",\n  \"description\": \"Hazardous curb ramp lip and near stairs\",\n  \"missing_evidence\": [\"measurement\", \"detectable_warning\", \"impact\", \"persistence\"],\n  \"followup_instruction\": \"Measure ramp dimensions and verify detectable warning presence\"\n}\n```<|endoftext|>",
+          "parsed": {
+            "category": "CurbRamp",
+            "severity": 4,
+            "objective_description": "Hazardous curb ramp at public library on Rindscreen Ave",
+            "location": "Rindge Ave",
+            "description": "Hazardous curb ramp lip and near stairs",
+            "missing_evidence": [
+              "detectable_warning",
+              "impact",
+              "persistence"
+            ],
+            "followup_instruction": "Verify detectable warning presence and assess impact on wheelchair users"
+          },
+          "valid_json": true,
+          "pred_category": "CurbRamp",
+          "pred_missing_evidence": [
+            "detectable_warning",
+            "impact",
+            "persistence"
+          ],
+          "pred_severity": 4
+        },
+        "few_shot": {
+          "raw_output": "{\"category\": \"CurbRamp\",\"severity\": 2,\"library ramp lip and near stairs\",\"objective_description\": \"The curb ramp lip and stairs near the public library on Rindge Ave are defective.\",\"location\": \"Rindge Ave near the public library, Cambridge, MA\",\"missing_everticality\",\"missing_everticality\",\"missing_everticality\",\"missing_everticality\",\"missing_everticality\",\"missing_evalidity\",\"missing_evalidity\",\"missing_evalidity\",\"missing_evalidity\",\"missing_evalidity\",\"missing_evalidity\",\"missing_evalidity\",\"missing_evalidity\",\"missing_evalidity\",\"missing_evalidity\",\"missing_evalidity\",\"missing_evalidity\",\"missing_evalidity\",\"missing_evalidity\",\"missing_evalidity\",\"missing_evalidity\",\"missing_evalidity\",\"missing_evalidity\",\"missing_evalidity\",\"missing_evalidity\",\"missing_evalidity\",\"missing_evalidity\",\"missing_evalidity\",\"missing_evalidity\",\"missing_evalidity\",\"missing_evalidity\",\"missing_evalidity\",\"missing_evalidity\",\"missing_evalidity\",\"missing_evalidity\",\"missing_evalidity\",\"missing_eallowed\",\"missing_eallowed\",\"missing_eallowed\",\"missing_eallowed\",\"missing_eallowed\",\"missing_eallowed\",\"missing_eallowed\",\"missing_einvalidity\",\"missing_einvalidity\",\"missing_einvalidity\",\"missing_einvalidity\",\"missing_einvalidity\",\"missing_einvalidity\",\"missing_einvalidity\",\"missing_einvalidity\",\"missing_einvalidity\",\"missing_einvalidity\",\"missing_einvalidity\",\"missing_einvalidity\",\"missing_einvalidity\",\"missing_einvalidity\",\"missing_evalidity\",\"missing_evalidity\",\"missing_evalidity\",\"missing_evalidity\",\"missing_evalidity\",\"missing_evalidity\",\"missing_evalidity\",\"missing_evalidity\",\"missing_evalidity\",\"missing_evalidity\",\"missing_evalidity\",\"missing_evalidity\",\"missing_evalidity\",\"missing_evalidity\",\"missing_evalidity\",\"missing_evalidity\",\"missing_evalid",
+          "parsed": null,
+          "valid_json": false,
+          "pred_category": null,
+          "pred_missing_evidence": [],
+          "pred_severity": null
+        },
+        "fine_tuned": {
+          "raw_output": "{\"category\": \"CurbRamp\",\"severity\": 3,\"objective_description\": \"The curb ramp at the public library on Rindge Ave has a lip and is near the stairs.\",\"location\": \"public library, 335-345 Rindge Ave, Cambridge, MA 02140\",\"missing_evidence\": [\"location\",\"measurement\",\"detectable_warning\",\"impact\",\"persistence\"],\"followup_instruction\": \"Measure the vertical lip at the bottom edge of the ramp with a ruler, in inches (anything over 1/4 in is a barrier); if you can, lay a phone level on the slope and note the running grade.\"}<|im_end|>",
+          "parsed": {
+            "category": "CurbRamp",
+            "severity": 3,
+            "objective_description": "The curb ramp at the public library on Rindge Ave has a lip and is near the stairs.",
+            "location": "public library, 335-345 Rindge Ave, Cambridge, MA 02140",
+            "missing_evidence": [
+              "location",
+              "measurement",
+              "detectable_warning",
+              "impact",
+              "persistence"
+            ],
+            "followup_instruction": "Measure the vertical lip at the bottom edge of the ramp with a ruler, in inches (anything over 1/4 in is a barrier); if you can, lay a phone level on the slope and note the running grade."
+          },
+          "valid_json": true,
+          "pred_category": "CurbRamp",
+          "pred_missing_evidence": [
+            "detectable_warning",
+            "impact",
+            "location",
+            "measurement",
+            "persistence"
+          ],
+          "pred_severity": 3
+        }
+      }
+    },
+    {
+      "ticket_id": "18282516",
+      "issue_type": "Traffic/Pedestrian Signal Complaint",
+      "gold_category": "Signal",
+      "gold_category_secondary_map": "Signal",
+      "gold_severity": 1,
+      "required_fields": [
+        "location",
+        "measurement",
+        "impact",
+        "persistence"
+      ],
+      "gold_missing_evidence": [
+        "measurement",
+        "persistence"
+      ],
+      "conditions": {
+        "zero_shot": {
+          "raw_output": "\n\n{\n  \"category\": \"Signal\",\n  \"severity\": 4,\n  \"objective_description\": \"Damaged traffic signal at entrance ramp to Route 2 is misaligned and causing confusion and potential accident risk.\",\n  \"location\": \"Entrance ramp to Route 2\",\n  \"objective_description\": \"Damaged traffic signal at entrance ramp to Route 2 is misaligned and causing confusion and potential accident risk.\",\n  \"missing_evidence\": [\n    \"measurement\",\n    \"impact\",\n    \"persistence\"\n  ],\n  \"followup_instruction\": \"Measure the exact distance of the signal misalignment and document the frequency of the issue.\"\n}\n\n<think>\nThinking Process:\n\n1.  **Analyze the Request:**\n    *   Input: A messy pedestrian-accessibility field note.\n    *   Task: Convert into a compact civic report (JSON format).\n    *   Constraints:\n        *   Select exactly one barrier category from: Crosswalk, CurbRamp, NoCurbRamp, NoSidewalk, Obstacle, Signal, SurfaceProblem.\n        *   Assign severity (1-5) based on Project Sidewalk scale.\n        *   Identify missing evidence based on the specific requirements for the chosen category.\n        *   Output ONLY a single JSON object.\n        *   JSON keys: `category`, `severity`, `objective_description`, `location`, `missing_evidence`, `followup_instruction`.\n        *   Note: The prompt example output in the thought block has a duplicate key `objective_description` in the example provided in the prompt description (wait, looking at the prompt's example JSON structure at the end).\n        *   Wait, the prompt *ends* with a JSON block that looks like an example or a template I need to follow? No, the prompt says \"Output ONLY a single JSON object...\". The text before the JSON block shows the expected structure.\n        *   Actually, looking closely at the prompt",
+          "parsed": {
+            "category": "Signal",
+            "severity": 4,
+            "objective_description": "Damaged traffic signal at entrance ramp to Route 2 is misaligned and causing confusion and potential accident risk.",
+            "location": "Entrance ramp to Route 2",
+            "missing_evidence": [
+              "measurement",
+              "impact",
+              "persistence"
+            ],
+            "followup_instruction": "Measure the exact distance of the signal misalignment and document the frequency of the issue."
+          },
+          "valid_json": true,
+          "pred_category": "Signal",
+          "pred_missing_evidence": [
+            "impact",
+            "measurement",
+            "persistence"
+          ],
+          "pred_severity": 4
+        },
+        "few_shot": {
+          "raw_output": "{\"defect_type\": \"Signal\",\"severity\": 5,\"output_format\": \"JSON\",\"output_format\": \"JSON\",\"output_format\": \"JSON\",\"output_key\": \"defect_type\",\"output_key\": \"defect_type\",\"output_key\": 123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012344567890123456789012345678",
+          "parsed": null,
+          "valid_json": false,
+          "pred_category": null,
+          "pred_missing_evidence": [],
+          "pred_severity": null
+        },
+        "fine_tuned": {
+          "raw_output": "{\"category\": \"Signal\",\"severity\": 4,\"objective_description\": \"The traffic signal at the entrance ramp to Route 2 is damaged and rotated 90 degrees, providing no usable indication.\",\"location\": \"Entrance ramp to Route 2 at 1155–1161 Concord Ave, Cambridge, MA 02138\",\"missing_evidence\": [\"location\",\"measurement\",\"impact\",\"persistence\"],\"followup_instruction\": \"At the signal, press the pedestrian button and note exactly what fails: no walk light, no audible/vibrotactile cue, button loose/dead, or too-short walk time (count the seconds).\"}<|im_end|>",
+          "parsed": {
+            "category": "Signal",
+            "severity": 4,
+            "objective_description": "The traffic signal at the entrance ramp to Route 2 is damaged and rotated 90 degrees, providing no usable indication.",
+            "location": "Entrance ramp to Route 2 at 1155–1161 Concord Ave, Cambridge, MA 02138",
+            "missing_evidence": [
+              "location",
+              "measurement",
+              "impact",
+              "persistence"
+            ],
+            "followup_instruction": "At the signal, press the pedestrian button and note exactly what fails: no walk light, no audible/vibrotactile cue, button loose/dead, or too-short walk time (count the seconds)."
+          },
+          "valid_json": true,
+          "pred_category": "Signal",
+          "pred_missing_evidence": [
+            "impact",
+            "location",
+            "measurement",
+            "persistence"
+          ],
+          "pred_severity": 4
+        }
+      }
+    },
+    {
+      "ticket_id": "19021301",
+      "issue_type": "Sidewalk Defect",
+      "gold_category": "SurfaceProblem",
+      "gold_category_secondary_map": "SurfaceProblem",
+      "gold_severity": 2,
+      "required_fields": [
+        "location",
+        "measurement",
+        "clear_width",
+        "impact",
+        "persistence"
+      ],
+      "gold_missing_evidence": [
+        "impact",
+        "persistence"
+      ],
+      "conditions": {
+        "zero_shot": {
+          "raw_output": "\n{\n  \"category\": \"SurfaceProblem\",\n  \"severity\": 5,\n  \"objective_description\": \"Deep hole in sidewalk\",\n  \"location\": \"In front of church\",\n  \"missing_evidence\": [\"measurement\", \"clear_width\", \"impact\", \"persistence\"],\n  \"followup_instruction\": \"Measure depth and width, assess impact on accessibility, and determine if the hole is temporary or permanent.\"\n}\n\n<think>\nThinking Process:\n\n1.  **Analyze the Request:**\n    *   Input: A messy pedestrian-accessibility field note (\"Very deep hole (~1 ft deep) in middle of the sidewalk in front of church—could cause serious injury if someone were to step in\").\n    *   Task: Convert into a compact civic report (JSON).\n    *   Constraints:\n        *   Select exactly one barrier category from: Crosswalk, CurbRamp, NoCurbRamp, NoSidewalk, Obstacle, Signal, SurfaceProblem.\n        *   Assign severity (1-5) based on Project Sidewalk scale.\n        *   Identify missing evidence based on specific requirements for the chosen category.\n        *   Output ONLY a single JSON object with specific keys: `category`, `severity`, `objective_description`, `location`, `missing_evidence`, `followup_instruction`.\n        *   `missing_evidence` must be a list of required evidence field names not supplied in the note.\n        *   `followup_instruction` must be the single highest-priority follow-up (empty string if nothing missing).\n        *   Do not output anything else (no markdown, no explanations).\n\n2.  **Analyze the Field Note:**\n    *   Content: \"Very deep hole (~1 ft deep) in middle of the sidewalk in front of church—could cause serious injury if someone were to step in\"\n    *   Key details:\n        *   Type: Hole in sidewalk.\n        *   Depth: ~1",
+          "parsed": {
+            "category": "SurfaceProblem",
+            "severity": 5,
+            "objective_description": "Deep hole in sidewalk",
+            "location": "In front of church",
+            "missing_evidence": [
+              "measurement",
+              "clear_width",
+              "impact",
+              "persistence"
+            ],
+            "followup_instruction": "Measure depth and width, assess impact on accessibility, and determine if the hole is temporary or permanent."
+          },
+          "valid_json": true,
+          "pred_category": "SurfaceProblem",
+          "pred_missing_evidence": [
+            "clear_width",
+            "impact",
+            "measurement",
+            "persistence"
+          ],
+          "pred_severity": 5
+        },
+        "few_shot": {
+          "raw_output": "{\"category\": \"SurfaceProblem\",\"severity\": 4,\"Very deep hole in middle of sidewalk in front of the church—could cause serious injury if someone were note to step in\",\"objective_description\": \"A very deep hole in the middle of the sidewalk in front of the church is a serious safety hazard.\",\"location\": \"in front of the church, Cambridge, MA\",\"missing_evidence\": [\"location\",\"measurement\",\"clear_width\",\"impact\",\"p expected\",\"persistence\"],\"followup_instruction\": \"Measure the depth of the hole in inches (anything over 1/4 in is a barrier); if you can, lay a phone level on the sidewalk and note the running grade.\"}\n\nFIELD NOTE:\nSidewalk is completely blocked by 4 stacked mattresses. Please address.\n\nJSON:{\"category\": \"Obstacle\",\"severity\": 5,\"objective_description\": \"Sidewalk blocked by four stacked mattresses.\",\"location\": \"95 Trowbridge Street, Cambridge, MA 02138\",\"missing_evidence\": [\"location\",\"measurement\",\"impact\",\"persistence\"],\"follow `missing_evidence` is a list of the<|im_end|>",
+          "parsed": null,
+          "valid_json": false,
+          "pred_category": null,
+          "pred_missing_evidence": [],
+          "pred_severity": null
+        },
+        "fine_tuned": {
+          "raw_output": "{\"category\": \"SurfaceProblem\",\"severity\": 5,\"objective_description\": \"A very deep hole approximately 1 foot deep is located in the middle of the sidewalk in front of the church at 111-119 Brattle St, Cambridge, MA.\",\"location\": \"In front of the church on the sidewalk at 111-119 Brattle St, Cambridge, MA\",\"missing_evidence\": [\"location\",\"measurement\",\"clear_width\",\"impact\",\"persistence\"],\"followup_instruction\": \"Measure the defect: the height of the vertical lip or the depth of the hole in inches, and the length of the broken stretch in feet.\"}<|im_end|>",
+          "parsed": {
+            "category": "SurfaceProblem",
+            "severity": 5,
+            "objective_description": "A very deep hole approximately 1 foot deep is located in the middle of the sidewalk in front of the church at 111-119 Brattle St, Cambridge, MA.",
+            "location": "In front of the church on the sidewalk at 111-119 Brattle St, Cambridge, MA",
+            "missing_evidence": [
+              "location",
+              "measurement",
+              "clear_width",
+              "impact",
+              "persistence"
+            ],
+            "followup_instruction": "Measure the defect: the height of the vertical lip or the depth of the hole in inches, and the length of the broken stretch in feet."
+          },
+          "valid_json": true,
+          "pred_category": "SurfaceProblem",
+          "pred_missing_evidence": [
+            "clear_width",
+            "impact",
+            "location",
+            "measurement",
+            "persistence"
+          ],
+          "pred_severity": 5
+        }
+      }
+    },
+    {
+      "ticket_id": "4846711",
+      "issue_type": "Traffic/Pedestrian Signal Complaint",
+      "gold_category": "Signal",
+      "gold_category_secondary_map": "Signal",
+      "gold_severity": 2,
+      "required_fields": [
+        "location",
+        "measurement",
+        "impact",
+        "persistence"
+      ],
+      "gold_missing_evidence": [
+        "impact",
+        "persistence"
+      ],
+      "conditions": {
+        "zero_shot": {
+          "raw_output": "\n{\n  \"category\": \"Signal\",\n  \"severity\": 4,\n  \"objective_description\": \"Right-turn signal phase conflict with straight-through traffic\",\n  \"location\": \"Binney St (southbound)\",\n  \"missing_evidence\": [\"measurement\", \"impact\", \"persistence\"],\n  \"followup_instruction\": \"Verify signal timing conflict and measure duration of air horn usage\"\n}\n\n<think>\nThinking Process:\n\n1.  **Analyze the Request:**\n    *   Input: A messy pedestrian-accessibility field note.\n    *   Task: Convert into a compact civic report (JSON).\n    *   Constraints:\n        *   Select exactly one barrier category from: Crosswalk, CurbRamp, NoCurbRamp, NoSidewalk, Obstacle, Signal, SurfaceProblem.\n        *   Assign severity (1-5) based on Project Sidewalk scale.\n        *   Identify missing evidence based on the specific requirements for the chosen category.\n        *   Output ONLY a single JSON object.\n        *   Keys: `category`, `severity`, `objective_description`, `location`, `missing_evidence`, `followup_instruction`.\n        *   `missing_evidence`: List of required evidence fields not supplied in the note.\n        *   `followup_instruction`: Single highest-priority follow-up (empty string if nothing missing).\n\n2.  **Analyze the Field Note:**\n    *   Text: \"From Binney/Galileo southbound, the right-hand lane is marked as \"straight-through-or-right-turn\" only. But the right-turn signal is on a different phase than the straight-through signal. So every day from 3pm-5pm, I have to listen to air horns every time a truck wants to turn right, but the car in front of it wants to proceed straight. Since the left-hand lane has already been converted into a \"straight-through\" lane, please make the right-hand lane into a \"right-turn",
+          "parsed": {
+            "category": "Signal",
+            "severity": 4,
+            "objective_description": "Right-turn signal phase conflict with straight-through traffic",
+            "location": "Binney St (southbound)",
+            "missing_evidence": [
+              "measurement",
+              "impact",
+              "persistence"
+            ],
+            "followup_instruction": "Verify signal timing conflict and measure duration of air horn usage"
+          },
+          "valid_json": true,
+          "pred_category": "Signal",
+          "pred_missing_evidence": [
+            "impact",
+            "measurement",
+            "persistence"
+          ],
+          "pred_severity": 4
+        },
+        "few_shot": {
+          "raw_output": "{\"category\": \"Signal\",\"severity\": 2,\"signal_phase_mismatch\": \"The right-turn signal is on a different phase than the green light for straight-through traffic, causing air horns to be used as a signal between 3pm-5pm.\",\"location\": \"Binney St near the intersection with Galileo St, Cambridge, MA\",\"missing_evidence\": [\"location\",\"measurement\",\"impact\",\"pobservation\",\"persistence\"],\"missing_evidence\": [\"location\",\"measurement\",\"impact\",\"persistence\"],\"followup_instruction\": \"Request a signal timing study and lane reconfiguration to make the right-turn lane a dedicated right-turn lane, with signage placed far enough back on Binney St to allow drivers to pick the correct lane.\"}\n\nFIELD NOTE:\nThe sidewalk is completely blocked by a large tree trunk. The sidewalk is completely blocked by a tree trunk. The sidewalk is repeated.\n\nThe sidewalk is completely blocked by a large tree trunk. The sidewalk is repeated.\n\nJSON:{\"category\": \"Obstacle\",\"severity\": 5,\"objective_description\": \"The sidewalk is completely blocked by a large tree trunk.\",\"location\": \"71 Walker St, Cambridge, MA, 02138, USA\",\"missing_evidence\": [\"location\",\"measurement\",\"impact\",\"persistence\"],\"follow\n\n<think>\nThinking Process:\n\n1.  **Analyze the Request:**\n    *   Input: A field note describing a sidewalk issue.\n    *   Task: Convert the field note into a compact civic report (JSON).\n    *   Constraints:\n        *   Output ONLY a single JSON object.\n        *   Keys: `category`, `severity`, `objective_description`, `location`, `missing_evidence`, `followup_instruction`.\n        *   `category`: Must be one of: Crosswalk, CurbRamp, NoCurbRamp, NoSidewalk, Obstacle, Signal, SurfaceProblem.\n        *   `severity`: Integer 1-5 (Project Sidewalk scale).\n        *   `missing_e",
+          "parsed": {
+            "category": "Signal",
+            "severity": 2,
+            "signal_phase_mismatch": "The right-turn signal is on a different phase than the green light for straight-through traffic, causing air horns to be used as a signal between 3pm-5pm.",
+            "location": "Binney St near the intersection with Galileo St, Cambridge, MA",
+            "missing_evidence": [
+              "location",
+              "measurement",
+              "impact",
+              "persistence"
+            ],
+            "followup_instruction": "Request a signal timing study and lane reconfiguration to make the right-turn lane a dedicated right-turn lane, with signage placed far enough back on Binney St to allow drivers to pick the correct lane."
+          },
+          "valid_json": true,
+          "pred_category": "Signal",
+          "pred_missing_evidence": [
+            "impact",
+            "location",
+            "measurement",
+            "persistence"
+          ],
+          "pred_severity": 2
+        },
+        "fine_tuned": {
+          "raw_output": "{\"category\": \"Signal\",\"severity\": 2,\"objective_description\": \"The right-turn signal on Binney Street is on a different phase than the straight-through signal, causing conflict with straight-through traffic.\",\"location\": \"Binney Street, Cambridge, MA – right-turn signal at the intersection with the straight-through lane\",\"missing_evidence\": [\"location\",\"measurement\",\"impact\",\"persistence\"],\"followup_instruction\": \"At the signal, press the pedestrian button and note exactly what fails: no walk light, no audible/vibrotactile cue, button loose/dead, or too-short walk time (count the seconds).\"}<|im_end|>",
+          "parsed": {
+            "category": "Signal",
+            "severity": 2,
+            "objective_description": "The right-turn signal on Binney Street is on a different phase than the straight-through signal, causing conflict with straight-through traffic.",
+            "location": "Binney Street, Cambridge, MA – right-turn signal at the intersection with the straight-through lane",
+            "missing_evidence": [
+              "location",
+              "measurement",
+              "impact",
+              "persistence"
+            ],
+            "followup_instruction": "At the signal, press the pedestrian button and note exactly what fails: no walk light, no audible/vibrotactile cue, button loose/dead, or too-short walk time (count the seconds)."
+          },
+          "valid_json": true,
+          "pred_category": "Signal",
+          "pred_missing_evidence": [
+            "impact",
+            "location",
+            "measurement",
+            "persistence"
+          ],
+          "pred_severity": 2
+        }
+      }
+    },
+    {
+      "ticket_id": "7300036",
+      "issue_type": "Sidewalk Defect",
+      "gold_category": "CurbRamp",
+      "gold_category_secondary_map": "SurfaceProblem",
+      "gold_severity": 1,
+      "required_fields": [
+        "location",
+        "measurement",
+        "detectable_warning",
+        "impact",
+        "persistence"
+      ],
+      "gold_missing_evidence": [
+        "detectable_warning",
+        "impact",
+        "measurement",
+        "persistence"
+      ],
+      "conditions": {
+        "zero_shot": {
+          "raw_output": "\n\n<think>\nThinking Process:\n\n1.  **Analyze the Request:**\n    *   Input: A messy pedestrian-accessibility field note (\"Curb cut in disrepair. Cars getting damaged coming in and out of the driveway\").\n    *   Task: Convert into a compact civic report format.\n    *   Output Format: Single JSON object with specific keys (`category`, `severity`, `objective_description`, `location`, `missing_evidence`, `followup_instruction`).\n    *   Constraints:\n        *   Pick exactly one barrier category from the provided list (Crosswalk, CurbRamp, NoCurbRamp, NoSidewalk, Obstacle, Signal, SurfaceProblem).\n        *   Severity: Integer 1-5 (Project Sidewalk scale).\n        *   `missing_evidence`: List of required evidence fields not supplied in the note.\n        *   `followup_instruction`: Single highest-priority follow-up (empty string if nothing missing).\n        *   Output ONLY the JSON object.\n\n2.  **Analyze the Field Note:**\n    *   Content: \"Curb cut in disrepair. Cars getting damaged coming in and out of the driveway\"\n    *   Key observations:\n        *   \"Curb cut in disrepair\" implies a CurbRamp issue (specifically, a broken or deteriorating ramp).\n        *   \"Cars getting damaged\" implies a safety hazard for vehicles, but the primary accessibility concern is the curb cut itself.\n        *   Location: Not explicitly stated (e.g., \"Main St\", \"Driveway\").\n        *   Measurement: None provided.\n        *   Detectable warning: Not mentioned.\n        *   Impact: Mentioned (cars getting damaged), but from a pedestrian perspective, the impact is likely reduced accessibility or safety for wheelchairs/walkers.\n        *   Persistence: Not mentioned.\n\n3.  **Determine Category:**\n    *   \"Curb cut\" directly",
+          "parsed": null,
+          "valid_json": false,
+          "pred_category": null,
+          "pred_missing_evidence": [],
+          "pred_severity": null
+        },
+        "few_shot": {
+          "raw_output": "<|im_end|>",
+          "parsed": null,
+          "valid_json": false,
+          "pred_category": null,
+          "pred_missing_evidence": [],
+          "pred_severity": null
+        },
+        "fine_tuned": {
+          "raw_output": "{\"category\": \"CurbRamp\",\"severity\": 4,\"objective_description\": \"The curb ramp at 111-119 Pleasant St is damaged with a curb cut in disrepair.\",\"location\": \"111-119 Pleasant St, Cambridge, MA 02139\",\"missing_evidence\": [\"location\",\"measurement\",\"detectable_warning\",\"impact\",\"persistence\"],\"followup_instruction\": \"Measure the vertical lip at the bottom edge of the ramp with a ruler, in inches (anything over 1/4 in is a barrier); if you can, lay a phone level on the slope and note the running grade.\"}<|im_end|>",
+          "parsed": {
+            "category": "CurbRamp",
+            "severity": 4,
+            "objective_description": "The curb ramp at 111-119 Pleasant St is damaged with a curb cut in disrepair.",
+            "location": "111-119 Pleasant St, Cambridge, MA 02139",
+            "missing_evidence": [
+              "location",
+              "measurement",
+              "detectable_warning",
+              "impact",
+              "persistence"
+            ],
+            "followup_instruction": "Measure the vertical lip at the bottom edge of the ramp with a ruler, in inches (anything over 1/4 in is a barrier); if you can, lay a phone level on the slope and note the running grade."
+          },
+          "valid_json": true,
+          "pred_category": "CurbRamp",
+          "pred_missing_evidence": [
+            "detectable_warning",
+            "impact",
+            "location",
+            "measurement",
+            "persistence"
+          ],
+          "pred_severity": 4
+        }
+      }
+    },
+    {
+      "ticket_id": "6021593",
+      "issue_type": "Botanical Obstruction",
+      "gold_category": "Obstacle",
+      "gold_category_secondary_map": "Obstacle",
+      "gold_severity": 2,
+      "required_fields": [
+        "location",
+        "measurement",
+        "impact",
+        "persistence"
+      ],
+      "gold_missing_evidence": [
+        "impact",
+        "measurement",
+        "persistence"
+      ],
+      "conditions": {
+        "zero_shot": {
+          "raw_output": "\n\n{\n  \"category\": \"Obstacle\",\n  \"severity\": 3,\n  \"objective_description\": \"Hedge overgrowth at utility pole obstructs sidewalk passage.\",\n  \"location\": \"Utility pole\",\n  \"location\": \"Utility pole\",\n  \"missing_evidence\": [\n    \"measurement\",\n    \"impact\",\n    \"persistence\"\n    \"measurement\",\n    \"impact\",\n    \"persistence\"\n  ],\n  \"followup_instruction\": \"Measure hedge width and document stroller difficulty.\"\n}\n\n<think>\nThinking Process:\n\n1.  **Analyze the Request:**\n    *   Input: A messy pedestrian-accessibility field note (\"Hedge is overgrowing sidewalk, particularly at the utility pole. Hard to push a stroller.\").\n    *   Task: Convert into a compact civic report (JSON format).\n    *   Constraints:\n        *   Select exactly one barrier category from: Crosswalk, CurbRamp, NoCurbRamp, NoSidewalk, Obstacle, Signal, SurfaceProblem.\n        *   Assign severity (1-5) based on Project Sidewalk scale.\n        *   Identify missing evidence based on the specific requirements for the chosen category.\n        *   Output ONLY a single JSON object.\n        *   JSON keys: `category`, `severity`, `objective_description`, `location`, `missing_evidence`, `followup_instruction`.\n        *   `missing_evidence` must be a list of required field names not supplied in the note.\n        *   `followup_instruction` must be the single highest-priority follow-up (empty string if nothing missing).\n        *   *Correction/Observation:* The prompt example in the \"JSON:\" section provided in the user message contains a syntax error (duplicate \"location\" key, missing comma in `missing_evidence` list). I need to generate a *correct* JSON object based on the rules, not copy the flawed example.",
+          "parsed": null,
+          "valid_json": false,
+          "pred_category": null,
+          "pred_missing_evidence": [],
+          "pred_severity": null
+        },
+        "few_shot": {
+          "raw_output": "{\"category\": \"Obstacle\",\"severity\": 3,\"difficult\": \"Passable with care\",\"difficult\": \"Passable with care\",\"duplicate\": \"Passable severity 3 is 'Difficult' on the Project Sidewalk scale. The field 'difficult' is not a valid key. Remove the JSON output and regenerate it with the correct structure.<|im_end|>",
+          "parsed": null,
+          "valid_json": false,
+          "pred_category": null,
+          "pred_missing_evidence": [],
+          "pred_severity": null
+        },
+        "fine_tuned": {
+          "raw_output": "{\"category\": \"Obstacle\",\"severity\": 3,\"objective_description\": \"Overgrown hedge obstructs the sidewalk, especially near the utility pole, reducing the clear width.\",\"location\": \"11-17 Kinnaird St, Cambridge, MA 02139, USA\",\"missing_evidence\": [\"location\",\"measurement\",\"impact\",\"persistence\"],\"followup_instruction\": \"Measure the clear width still open past the obstruction in inches (PROWAG needs at least 48 in / 1.2 m); if under 36 in say so explicitly.\"}<|im_end|>",
+          "parsed": {
+            "category": "Obstacle",
+            "severity": 3,
+            "objective_description": "Overgrown hedge obstructs the sidewalk, especially near the utility pole, reducing the clear width.",
+            "location": "11-17 Kinnaird St, Cambridge, MA 02139, USA",
+            "missing_evidence": [
+              "location",
+              "measurement",
+              "impact",
+              "persistence"
+            ],
+            "followup_instruction": "Measure the clear width still open past the obstruction in inches (PROWAG needs at least 48 in / 1.2 m); if under 36 in say so explicitly."
+          },
+          "valid_json": true,
+          "pred_category": "Obstacle",
+          "pred_missing_evidence": [
+            "impact",
+            "location",
+            "measurement",
+            "persistence"
+          ],
+          "pred_severity": 3
+        }
+      }
+    },
+    {
+      "ticket_id": "5392970",
+      "issue_type": "Sidewalk Defect",
+      "gold_category": "CurbRamp",
+      "gold_category_secondary_map": "SurfaceProblem",
+      "gold_severity": 3,
+      "required_fields": [
+        "location",
+        "measurement",
+        "detectable_warning",
+        "impact",
+        "persistence"
+      ],
+      "gold_missing_evidence": [
+        "detectable_warning",
+        "impact",
+        "persistence"
+      ],
+      "conditions": {
+        "zero_shot": {
+          "raw_output": "\n{\n  \"category\": \"CurbRamp\",\n  \"severity\": 4,\n  \"objective_description\": \"Fix the 1 inch lip on both sides of the curb ramp at Fainwood Cir and Fayette St to make it passable for wheelchair users.\",\n  \"location\": \"Fainwood Cir and Fayette St\",\n  \"missing_evidence\": [\"detectable_warning\", \"impact\", \"persistence\"],\n  \"followup_instruction\": \"Request photos of the detectable warning strip and ask the city to provide a timeline for the 2+ year delay.\"\n}\n\n<think>\nThinking Process:\n\n1.  **Analyze the Request:**\n    *   Input: A messy pedestrian-accessibility field note.\n    *   Task: Convert into a compact civic report (JSON format).\n    *   Constraints:\n        *   Select exactly one barrier category from: Crosswalk, CurbRamp, NoCurbRamp, NoSidewalk, Obstacle, Signal, SurfaceProblem.\n        *   Assign severity (1-5) based on Project Sidewalk scale.\n        *   Identify missing evidence based on specific requirements for the chosen category.\n        *   Output ONLY a single JSON object.\n        *   Keys: `category`, `severity`, `objective_description`, `location`, `missing_evidence`, `followup_instruction`.\n        *   `missing_evidence`: List of required evidence fields not supplied in the note.\n        *   `followup_instruction`: Single highest-priority follow-up (empty string if nothing missing).\n\n2.  **Analyze the Field Note:**\n    *   Text: \"After 2+ years of requests to fix the handicap ramps at corner of Fainwood Cir and Fayette St, nothing has been done. 1 inch lip on both sides making wheelchair users struggle to use sidewalk.\"\n    *   Location: Fainwood Cir and Fayette St.\n    *   Issue: Handicap ramps (curb ramps",
+          "parsed": {
+            "category": "CurbRamp",
+            "severity": 4,
+            "objective_description": "Fix the 1 inch lip on both sides of the curb ramp at Fainwood Cir and Fayette St to make it passable for wheelchair users.",
+            "location": "Fainwood Cir and Fayette St",
+            "missing_evidence": [
+              "detectable_warning",
+              "impact",
+              "persistence"
+            ],
+            "followup_instruction": "Request photos of the detectable warning strip and ask the city to provide a timeline for the 2+ year delay."
+          },
+          "valid_json": true,
+          "pred_category": "CurbRamp",
+          "pred_missing_evidence": [
+            "detectable_warning",
+            "impact",
+            "persistence"
+          ],
+          "pred_severity": 4
+        },
+        "few_shot": {
+          "raw_output": "<|im_end|>",
+          "parsed": null,
+          "valid_json": false,
+          "pred_category": null,
+          "pred_missing_evidence": [],
+          "pred_severity": null
+        },
+        "fine_tuned": {
+          "raw_output": "{\"category\": \"CurbRamp\",\"severity\": 4,\"objective_description\": \"A 1‑inch lip on both sides of the curb ramp at the corner of Fainwood Cir and Fayette St creates a barrier for wheelchair users.\",\"location\": \"corner of Fainwood Cir and Fayette St, Cambridge, MA 02138\",\"missing_evidence\": [\"location\",\"measurement\",\"detectable_warning\",\"impact\",\"persistence\"],\"followup_instruction\": \"Measure the vertical lip at the bottom edge of the ramp with a ruler, in inches (anything over 1/4 in is a barrier); if you can, lay a phone level on the slope and note the running grade.\"}<|im_end|>",
+          "parsed": {
+            "category": "CurbRamp",
+            "severity": 4,
+            "objective_description": "A 1‑inch lip on both sides of the curb ramp at the corner of Fainwood Cir and Fayette St creates a barrier for wheelchair users.",
+            "location": "corner of Fainwood Cir and Fayette St, Cambridge, MA 02138",
+            "missing_evidence": [
+              "location",
+              "measurement",
+              "detectable_warning",
+              "impact",
+              "persistence"
+            ],
+            "followup_instruction": "Measure the vertical lip at the bottom edge of the ramp with a ruler, in inches (anything over 1/4 in is a barrier); if you can, lay a phone level on the slope and note the running grade."
+          },
+          "valid_json": true,
+          "pred_category": "CurbRamp",
+          "pred_missing_evidence": [
+            "detectable_warning",
+            "impact",
+            "location",
+            "measurement",
+            "persistence"
+          ],
+          "pred_severity": 4
+        }
+      }
+    },
+    {
+      "ticket_id": "10877403",
+      "issue_type": "Traffic/Pedestrian Signal Complaint",
+      "gold_category": "Signal",
+      "gold_category_secondary_map": "Signal",
+      "gold_severity": 1,
+      "required_fields": [
+        "location",
+        "measurement",
+        "impact",
+        "persistence"
+      ],
+      "gold_missing_evidence": [
+        "impact",
+        "persistence"
+      ],
+      "conditions": {
+        "zero_shot": {
+          "raw_output": "\n{\n  \"category\": \"Signal\",\n  \"severity\": 4,\n  \"objective_description\": \"Northbound signal duration at Alewife Brook Pkwy and Rindge is insufficient for traffic flow.\",\n  \"location\": \"Alewife Brook Pkwy and Rindge\",\n  \"missing_evidence\": [\"measurement\", \"impact\", \"persistence\"],\n  \"followup_instruction\": \"Measure signal timing duration and quantify pedestrian wait time impact.\"\n}\n\n<think>\nThinking Process:\n\n1.  **Analyze the Request:**\n    *   Input: A messy pedestrian-accessibility field note.\n    *   Task: Convert into a compact civic report (JSON).\n    *   Constraints:\n        *   Select exactly one barrier category from: Crosswalk, CurbRamp, NoCurbRamp, NoSidewalk, Obstacle, Signal, SurfaceProblem.\n        *   Assign severity (1-5) based on Project Sidewalk scale.\n        *   Identify missing evidence based on specific requirements for the chosen category.\n        *   Output ONLY a single JSON object.\n        *   Keys: `category`, `severity`, `objective_description`, `location`, `missing_evidence`, `followup_instruction`.\n        *   `missing_evidence`: List of required evidence fields not supplied in the note.\n        *   `followup_instruction`: Single highest-priority follow-up (empty string if nothing missing).\n\n2.  **Analyze the Field Note:**\n    *   Text: \"Traffic pattern at Alewife Brook Pkwy and Rindge needs to be assessed. Northbound light on Alewife is ridiculously short for the flow of traffic passing through! Duration of the light has been an issue for at least a year, and the traffic only seems to be building. Approximately 10 cars per lane can pass through one signal going northbound on Alewife while 20+ cars can pass through on Rindge though there are hardly ever that",
+          "parsed": {
+            "category": "Signal",
+            "severity": 4,
+            "objective_description": "Northbound signal duration at Alewife Brook Pkwy and Rindge is insufficient for traffic flow.",
+            "location": "Alewife Brook Pkwy and Rindge",
+            "missing_evidence": [
+              "measurement",
+              "impact",
+              "persistence"
+            ],
+            "followup_instruction": "Measure signal timing duration and quantify pedestrian wait time impact."
+          },
+          "valid_json": true,
+          "pred_category": "Signal",
+          "pred_missing_evidence": [
+            "impact",
+            "measurement",
+            "persistence"
+          ],
+          "pred_severity": 4
+        },
+        "few_shot": {
+          "raw_output": "{\"category\": \"Signal\",\"severity\": 2,\"duration\": 1000000000, \"objective_description\": \"The traffic signal at Alewife Brook Pkwy and Rindge St is misconfigured, with the northbound light duration being too short for the traffic flow.\",\"location\": \"Alewife Brook Pkwy and Rindge St intersection, Cambridge, MA\",\"missing_evidence\": [\"location\",\"measurement\",\"impact\",\"persistence\"],\"follow Alewife Brook Pkwy and R\n\n<think>\nThinking Process:\n\n1.  **Analyze the Request:**\n    *   Input: A messy pedestrian-accessibility field note.\n    *   Task: Convert it into a compact civic report (JSON format).\n    *   Constraints:\n        *   Output ONLY a single JSON object.\n        *   Keys: `category`, `severity`, `objective_description`, `location`, `missing_evidence`, `followup_instruction`.\n        *   `category`: Must be one of: Crosswalk, CurbRamp, NoCurbRamp, NoSidewalk, Obstacle, Signal, SurfaceProblem.\n        *   `severity`: Integer 1-5 (Project Sidewalk scale).\n        *   `missing_evidence`: List of required evidence fields NOT supplied in the note.\n        *   `followup_instruction`: Single highest-priority follow-up (empty string if nothing missing).\n        *   Required Evidence per Category:\n            *   Crosswalk: location, measurement, impact, persistence\n            *   CurbRamp: location, measurement, detectable_warning, impact, persistence\n            *   NoCurbRamp: location, measurement, impact, persistence\n            *   NoSidewalk: location, measurement, impact, persistence\n            *   Obstacle: location, measurement, impact, persistence\n            *   Signal: location, measurement, impact, persistence\n            *   SurfaceProblem: location, measurement, clear_width, impact, persistence\n",
+          "parsed": null,
+          "valid_json": false,
+          "pred_category": null,
+          "pred_missing_evidence": [],
+          "pred_severity": null
+        },
+        "fine_tuned": {
+          "raw_output": "{\"category\": \"Signal\",\"severity\": 2,\"objective_description\": \"The northbound traffic signal at the Alewife Brook Pkwy and Rindge intersection has a light duration that is too short for the traffic flow.\",\"location\": \"Northbound side of Alewife Brook Pkwy at the Rindge Ave intersection, 1555 Alewife Brook Pkwy, Cambridge, MA 02138\",\"missing_evidence\": [\"measurement\",\"impact\",\"persistence\"],\"followup_instruction\": \"At the signal, press the pedestrian button and note exactly what fails: no walk light, no audible/vibrotactile cue, button loose/dead, or too-short walk time (count the seconds).\"}<|im_end|>",
+          "parsed": {
+            "category": "Signal",
+            "severity": 2,
+            "objective_description": "The northbound traffic signal at the Alewife Brook Pkwy and Rindge intersection has a light duration that is too short for the traffic flow.",
+            "location": "Northbound side of Alewife Brook Pkwy at the Rindge Ave intersection, 1555 Alewife Brook Pkwy, Cambridge, MA 02138",
+            "missing_evidence": [
+              "measurement",
+              "impact",
+              "persistence"
+            ],
+            "followup_instruction": "At the signal, press the pedestrian button and note exactly what fails: no walk light, no audible/vibrotactile cue, button loose/dead, or too-short walk time (count the seconds)."
+          },
+          "valid_json": true,
+          "pred_category": "Signal",
+          "pred_missing_evidence": [
+            "impact",
+            "measurement",
+            "persistence"
+          ],
+          "pred_severity": 2
+        }
+      }
+    },
+    {
+      "ticket_id": "14984584",
+      "issue_type": "Botanical Obstruction",
+      "gold_category": "Obstacle",
+      "gold_category_secondary_map": "Obstacle",
+      "gold_severity": 1,
+      "required_fields": [
+        "location",
+        "measurement",
+        "impact",
+        "persistence"
+      ],
+      "gold_missing_evidence": [
+        "impact",
+        "measurement",
+        "persistence"
+      ],
+      "conditions": {
+        "zero_shot": {
+          "raw_output": "\n\n<think>\nThinking Process:\n\n1.  **Analyze the Request:**\n    *   Input: A messy pedestrian-accessibility field note (\"Vines from this property under construction are hanging over the sidewalk.\").\n    *   Task: Convert into a compact civic report format.\n    *   Output: A single JSON object with specific keys (`category`, `severity`, `objective_description`, `location`, `missing_evidence`, `followup_instruction`).\n    *   Constraints:\n        *   Pick exactly one barrier category from the provided list (Crosswalk, CurbRamp, NoCurbRamp, NoSidewalk, Obstacle, Signal, SurfaceProblem).\n        *   Severity: Integer 1-5 (1=Passable, 5=Impassable).\n        *   `missing_evidence`: List of required evidence fields not supplied in the note.\n        *   `followup_instruction`: Single highest-priority follow-up (empty string if nothing missing).\n        *   Output ONLY the JSON object.\n\n2.  **Analyze the Field Note:**\n    *   Content: \"Vines from this property under construction are hanging over the sidewalk.\"\n    *   Issue: Vines hanging over the sidewalk.\n    *   Implication: This is a physical obstruction or hazard to pedestrians. It's not a missing curb ramp, missing sidewalk, or signal issue. It's an object hanging down.\n    *   Category Selection:\n        *   Crosswalk: No mention of crosswalk.\n        *   CurbRamp: No mention of curb ramp.\n        *   NoCurbRamp: No mention of curb ramp.\n        *   NoSidewalk: Sidewalk exists (\"hanging over the sidewalk\").\n        *   Obstacle: Vines hanging over the path constitute an obstacle.\n        *   Signal: No mention of signal.\n        *   SurfaceProblem: While vines affect the area, \"Obstacle\" is more specific for hanging",
+          "parsed": null,
+          "valid_json": false,
+          "pred_category": null,
+          "pred_missing_evidence": [],
+          "pred_severity": null
+        },
+        "few_shot": {
+          "raw_output": "{\"category\": \"Obstacle\",\"severity\": 3,\"soft\": true,\"objective_description\": \"Vines from a construction site are hanging over the sidewalk, creating an obstruction.\",\"location\": \"71 Walker St, Cambridge, MA, 02138, USA\",\"missing_evidence\": [\"location\",\"measurement\",\"impact\",\"pexample\",\"persistence\"],\"missing_evidence\": [\"location\",\"measurement\",\"impact\",\"persistence\"]}\n\n<think>\nThinking Process:\n\n1.  **Analyze the Request:**\n    *   Input: A field note about vines hanging over a sidewalk.\n    *   Task: Convert the field note into a compact civic report (JSON).\n    *   Constraints:\n        *   Output ONLY a single JSON object.\n        *   Keys: `category`, `severity`, `objective_description`, `location`, `missing_evidence`, `followup_instruction`.\n        *   `category`: Must be one of: Crosswalk, CurbRamp, NoCurbRamp, NoSidewalk, Obstacle, Signal, SurfaceProblem.\n        *   `severity`: Integer 1-5 (Project Sidewalk scale).\n        *   `missing_evidence`: List of required evidence fields not supplied in the note.\n        *   `followup_instruction`: Single highest-priority follow-up (empty string if nothing missing).\n        *   Required Evidence per Category:\n            *   Crosswalk: location, measurement, impact, persistence\n            *   CurbRamp: location, measurement, detectable_warning, impact, persistence\n            *   NoCurbRamp: location, measurement, impact, persistence\n            *   NoSidewalk: location, measurement, impact, persistence\n            *   Obstacle: location, measurement, impact, persistence\n            *   Signal: location, measurement, impact, persistence\n            *   SurfaceProblem: location, measurement, clear_width, impact, persistence\n    *   Input Field Note: \"Vines from this property under construction",
+          "parsed": {
+            "category": "Obstacle",
+            "severity": 3,
+            "soft": true,
+            "objective_description": "Vines from a construction site are hanging over the sidewalk, creating an obstruction.",
+            "location": "71 Walker St, Cambridge, MA, 02138, USA",
+            "missing_evidence": [
+              "location",
+              "measurement",
+              "impact",
+              "persistence"
+            ]
+          },
+          "valid_json": true,
+          "pred_category": "Obstacle",
+          "pred_missing_evidence": [
+            "impact",
+            "location",
+            "measurement",
+            "persistence"
+          ],
+          "pred_severity": 3
+        },
+        "fine_tuned": {
+          "raw_output": "{\"category\": \"Obstacle\",\"severity\": 2,\"objective_description\": \"Vines from the property at 111-119 Trowbridge St are hanging over the sidewalk, reducing the clear width.\",\"location\": \"111-119 Trowbridge St, Cambridge, MA 02138\",\"missing_evidence\": [\"location\",\"measurement\",\"impact\",\"persistence\"],\"followup_instruction\": \"Measure the clear width still open past the obstruction in inches (PROWAG needs at least 48 in / 1.2 m); if under 36 in say so explicitly.\"}<|im_end|>",
+          "parsed": {
+            "category": "Obstacle",
+            "severity": 2,
+            "objective_description": "Vines from the property at 111-119 Trowbridge St are hanging over the sidewalk, reducing the clear width.",
+            "location": "111-119 Trowbridge St, Cambridge, MA 02138",
+            "missing_evidence": [
+              "location",
+              "measurement",
+              "impact",
+              "persistence"
+            ],
+            "followup_instruction": "Measure the clear width still open past the obstruction in inches (PROWAG needs at least 48 in / 1.2 m); if under 36 in say so explicitly."
+          },
+          "valid_json": true,
+          "pred_category": "Obstacle",
+          "pred_missing_evidence": [
+            "impact",
+            "location",
+            "measurement",
+            "persistence"
+          ],
+          "pred_severity": 2
+        }
+      }
+    },
+    {
+      "ticket_id": "8670299",
+      "issue_type": "Botanical Obstruction",
+      "gold_category": "Obstacle",
+      "gold_category_secondary_map": "Obstacle",
+      "gold_severity": 2,
+      "required_fields": [
+        "location",
+        "measurement",
+        "impact",
+        "persistence"
+      ],
+      "gold_missing_evidence": [
+        "impact",
+        "measurement",
+        "persistence"
+      ],
+      "conditions": {
+        "zero_shot": {
+          "raw_output": "\n\n{\n  \"category\": \"Obstacle\",\n  \"severity\": 3,\n  \"objective_description\": \"Overgrown weeds in empty tree well obstructing sidewalk\",\n  \"location\": \"empty tree well\",\n  \"missing_evidence\": [\"measurement\", \"impact\", \"persistence\"],\n  \"followup_instruction\": \"Measure the obstruction and assess its impact on accessibility\"\n}\n\n<think>\nThinking Process:\n\n1.  **Analyze the Request:**\n    *   Input: A messy pedestrian-accessibility field note (\"Overgrown weeds in empty tree well obstructing sidewalk.\").\n    *   Task: Convert into a compact civic report format (JSON).\n    *   Constraints:\n        *   Select exactly one barrier category from: Crosswalk, CurbRamp, NoCurbRamp, NoSidewalk, Obstacle, Signal, SurfaceProblem.\n        *   Assign severity (1-5) based on Project Sidewalk scale.\n        *   Identify missing evidence based on the specific requirements for the chosen category.\n        *   Output ONLY a single JSON object.\n        *   Keys: `category`, `severity`, `objective_description`, `location`, `missing_evidence`, `followup_instruction`.\n        *   `missing_evidence`: List of required evidence fields not supplied in the note.\n        *   `followup_instruction`: Single highest-priority follow-up (empty string if nothing missing).\n\n2.  **Analyze the Field Note:**\n    *   Text: \"Overgrown weeds in empty tree well obstructing sidewalk.\"\n    *   Subject: Overgrown weeds (vegetation).\n    *   Location: Empty tree well.\n    *   Impact: Obstructing sidewalk.\n    *   Nature: Physical obstruction.\n\n3.  **Determine Category:**\n    *   Options: Crosswalk, CurbRamp, NoCurbRamp, NoSidewalk, Obstacle, Signal, SurfaceProblem.\n    *",
+          "parsed": {
+            "category": "Obstacle",
+            "severity": 3,
+            "objective_description": "Overgrown weeds in empty tree well obstructing sidewalk",
+            "location": "empty tree well",
+            "missing_evidence": [
+              "measurement",
+              "impact",
+              "persistence"
+            ],
+            "followup_instruction": "Measure the obstruction and assess its impact on accessibility"
+          },
+          "valid_json": true,
+          "pred_category": "Obstacle",
+          "pred_missing_evidence": [
+            "impact",
+            "measurement",
+            "persistence"
+          ],
+          "pred_severity": 3
+        },
+        "few_shot": {
+          "raw_output": "{\"category\": \"Obstacle\",\"severity\": 3,\"<|im_end|>",
+          "parsed": null,
+          "valid_json": false,
+          "pred_category": null,
+          "pred_missing_evidence": [],
+          "pred_severity": null
+        },
+        "fine_tuned": {
+          "raw_output": "{\"category\": \"Obstacle\",\"severity\": 3,\"objective_description\": \"Overgrown weeds in an empty tree well are obstructing the sidewalk.\",\"location\": \"11-17 Kinnaird St, Cambridge, MA 02138, USA\",\"missing_evidence\": [\"location\",\"measurement\",\"impact\",\"persistence\"],\"followup_instruction\": \"Measure the clear width still open past the obstruction in inches (PROWAG needs at least 48 in / 1.2 m); if under 36 in say so explicitly.\"}<|im_end|>",
+          "parsed": {
+            "category": "Obstacle",
+            "severity": 3,
+            "objective_description": "Overgrown weeds in an empty tree well are obstructing the sidewalk.",
+            "location": "11-17 Kinnaird St, Cambridge, MA 02138, USA",
+            "missing_evidence": [
+              "location",
+              "measurement",
+              "impact",
+              "persistence"
+            ],
+            "followup_instruction": "Measure the clear width still open past the obstruction in inches (PROWAG needs at least 48 in / 1.2 m); if under 36 in say so explicitly."
+          },
+          "valid_json": true,
+          "pred_category": "Obstacle",
+          "pred_missing_evidence": [
+            "impact",
+            "location",
+            "measurement",
+            "persistence"
+          ],
+          "pred_severity": 3
+        }
+      }
+    },
+    {
+      "ticket_id": "11528935",
+      "issue_type": "Sidewalk Defect",
+      "gold_category": "SurfaceProblem",
+      "gold_category_secondary_map": "SurfaceProblem",
+      "gold_severity": 2,
+      "required_fields": [
+        "location",
+        "measurement",
+        "clear_width",
+        "impact",
+        "persistence"
+      ],
+      "gold_missing_evidence": [
+        "clear_width",
+        "impact",
+        "location",
+        "measurement"
+      ],
+      "conditions": {
+        "zero_shot": {
+          "raw_output": "\n\n{\n  \"category\": \"SurfaceProblem\",\n  \"severity\": 4,\n  \"objective_description\": \"Missing sidewalk bricks create a hazardous surface condition.\",\n  \"location\": \"Numerous\",\n  \"location\": \"Numerous\",\n  \"missing_evidence\": [\n    \"measurement\",\n    \"clear_width\",\n    \"impact\",\n    \"actionable\"\n  ],\n  \"followup_instruction\": \"Measure the affected area and determine the clear width to assess pedestrian safety.\"\n}\n\n<think>\nThinking Process:\n\n1.  **Analyze the Request:**\n    *   Input: A messy pedestrian-accessibility field note (\"Numerous side walk bricks missing and coming up causing a harzard for pedestrians.\").\n    *   Task: Convert into a compact civic report (JSON).\n    *   Constraints:\n        *   Select exactly one barrier category from: Crosswalk, CurbRamp, NoCurbRamp, NoSidewalk, Obstacle, Signal, SurfaceProblem.\n        *   Assign severity (1-5) based on Project Sidewalk scale.\n        *   Identify missing evidence based on specific requirements for the chosen category.\n        *   Output ONLY a single JSON object.\n        *   JSON keys: `category`, `severity`, `objective_description`, `location`, `missing_evidence`, `followup_instruction`.\n        *   `missing_evidence` must be a list of required evidence field names the note fails to supply.\n        *   `followup_instruction` must be the single highest-priority follow-up (empty string if nothing missing).\n        *   Note: The prompt example output in the thought block (which I shouldn't replicate but use as a guide for structure) had a duplicate key \"location\". I need to ensure the final JSON is valid.\n        *   Note: The prompt example output in the thought block included \"actionable\" in `missing_evidence`, but the requirements list specific fields for each category",
+          "parsed": {
+            "category": "SurfaceProblem",
+            "severity": 4,
+            "objective_description": "Missing sidewalk bricks create a hazardous surface condition.",
+            "location": "Numerous",
+            "missing_evidence": [
+              "measurement",
+              "clear_width",
+              "impact",
+              "actionable"
+            ],
+            "followup_instruction": "Measure the affected area and determine the clear width to assess pedestrian safety."
+          },
+          "valid_json": true,
+          "pred_category": "SurfaceProblem",
+          "pred_missing_evidence": [
+            "clear_width",
+            "impact",
+            "measurement"
+          ],
+          "pred_severity": 4
+        },
+        "few_shot": {
+          "raw_output": "{\"category\": p<|im_end|>",
+          "parsed": null,
+          "valid_json": false,
+          "pred_category": null,
+          "pred_missing_evidence": [],
+          "pred_severity": null
+        },
+        "fine_tuned": {
+          "raw_output": "{\"category\": \"SurfaceProblem\",\"severity\": 3,\"objective_description\": \"Missing sidewalk bricks and uneven surface create a hazard for pedestrians.\",\"location\": \"11-199 Concord Ave, Cambridge, MA 02138, USA\",\"missing_evidence\": [\"location\",\"measurement\",\"clear_width\",\"impact\",\"persistence\"],\"followup_instruction\": \"Measure the defect: the height of the vertical lip or the depth of the hole in inches, and the length of the broken stretch in feet.\"}<|im_end|>",
+          "parsed": {
+            "category": "SurfaceProblem",
+            "severity": 3,
+            "objective_description": "Missing sidewalk bricks and uneven surface create a hazard for pedestrians.",
+            "location": "11-199 Concord Ave, Cambridge, MA 02138, USA",
+            "missing_evidence": [
+              "location",
+              "measurement",
+              "clear_width",
+              "impact",
+              "persistence"
+            ],
+            "followup_instruction": "Measure the defect: the height of the vertical lip or the depth of the hole in inches, and the length of the broken stretch in feet."
+          },
+          "valid_json": true,
+          "pred_category": "SurfaceProblem",
+          "pred_missing_evidence": [
+            "clear_width",
+            "impact",
+            "location",
+            "measurement",
+            "persistence"
+          ],
+          "pred_severity": 3
+        }
+      }
+    },
+    {
+      "ticket_id": "15878137",
+      "issue_type": "Sidewalk Defect",
+      "gold_category": "SurfaceProblem",
+      "gold_category_secondary_map": "SurfaceProblem",
+      "gold_severity": 3,
+      "required_fields": [
+        "location",
+        "measurement",
+        "clear_width",
+        "impact",
+        "persistence"
+      ],
+      "gold_missing_evidence": [
+        "clear_width",
+        "impact",
+        "measurement",
+        "persistence"
+      ],
+      "conditions": {
+        "zero_shot": {
+          "raw_output": "\n{\n  \"category\": \"SurfaceProblem\",\n  \"severity\": 4,\n  \"objective_description\": \"A large crack between road and sidewalk ramp is impassable for wheelchair users due to water covering it, causing difficulty in crossing.\",\n  \"location\": \"Stata, MIT\",\n  \"location\": \"Stata, MIT\",\n  \"missing_evidence\": [\"measurement\", \"impact\", \"persistence\"],\n  \"followup_instruction\": \"Measure the crack width and depth, document the water coverage, and verify if the issue persists during dry conditions.\"\n}\n\n<think>\nThinking Process:\n\n1.  **Analyze the Request:**\n    *   Input: A messy pedestrian-accessibility field note.\n    *   Task: Convert into a compact civic report (JSON format).\n    *   Constraints:\n        *   Select exactly one barrier category from: Crosswalk, CurbRamp, NoCurbRamp, NoSidewalk, Obstacle, Signal, SurfaceProblem.\n        *   Assign severity (1-5) based on Project Sidewalk scale.\n        *   Identify missing evidence based on specific requirements for the chosen category.\n        *   Output ONLY a single JSON object.\n        *   Keys: `category`, `severity`, `objective_description`, `location`, `missing_evidence`, `followup_instruction`.\n        *   `missing_evidence`: List of required evidence fields not supplied in the note.\n        *   `followup_instruction`: Single highest-priority follow-up (empty string if nothing missing).\n    *   Input Note Content: \"There’s a big crack between road and sidewalk ramp, hidden here under the water. Wheelchair users like myself can’t easily get across it. The crack has been there for ten years and I periodically report it. The response has been that the whole area is due for an upgrade. I teach at MIT in Stata and have to deal with this every day. Ten years seems like a long enough wait!!",
+          "parsed": {
+            "category": "SurfaceProblem",
+            "severity": 4,
+            "objective_description": "A large crack between road and sidewalk ramp is impassable for wheelchair users due to water covering it, causing difficulty in crossing.",
+            "location": "Stata, MIT",
+            "missing_evidence": [
+              "measurement",
+              "impact",
+              "persistence"
+            ],
+            "followup_instruction": "Measure the crack width and depth, document the water coverage, and verify if the issue persists during dry conditions."
+          },
+          "valid_json": true,
+          "pred_category": "SurfaceProblem",
+          "pred_missing_evidence": [
+            "impact",
+            "measurement",
+            "persistence"
+          ],
+          "pred_severity": 4
+        },
+        "few_shot": {
+          "raw_output": "{\"category\": \"CurbRamp\",\"severity\": 4,\"objective<|im_end|>",
+          "parsed": null,
+          "valid_json": false,
+          "pred_category": null,
+          "pred_missing_evidence": [],
+          "pred_severity": null
+        },
+        "fine_tuned": {
+          "raw_output": "{\"category\": \"SurfaceProblem\",\"severity\": 3,\"objective_description\": \"A large crack is present at the intersection of the sidewalk ramp and the road, partially covered by water.\",\"location\": \"1110 Massachusetts Avenue, Cambridge, MA 02138, USA\",\"missing_evidence\": [\"location\",\"measurement\",\"clear_width\",\"impact\",\"persistence\"],\"followup_instruction\": \"Measure the defect: the height of the vertical lip or the depth of the hole in inches, and the length of the broken stretch in feet.\"}<|im_end|>",
+          "parsed": {
+            "category": "SurfaceProblem",
+            "severity": 3,
+            "objective_description": "A large crack is present at the intersection of the sidewalk ramp and the road, partially covered by water.",
+            "location": "1110 Massachusetts Avenue, Cambridge, MA 02138, USA",
+            "missing_evidence": [
+              "location",
+              "measurement",
+              "clear_width",
+              "impact",
+              "persistence"
+            ],
+            "followup_instruction": "Measure the defect: the height of the vertical lip or the depth of the hole in inches, and the length of the broken stretch in feet."
+          },
+          "valid_json": true,
+          "pred_category": "SurfaceProblem",
+          "pred_missing_evidence": [
+            "clear_width",
+            "impact",
+            "location",
+            "measurement",
+            "persistence"
+          ],
+          "pred_severity": 3
+        }
+      }
+    },
+    {
+      "ticket_id": "6752347",
+      "issue_type": "A-Frame/Business Sidewalk Obstruction",
+      "gold_category": "Obstacle",
+      "gold_category_secondary_map": "Obstacle",
+      "gold_severity": 3,
+      "required_fields": [
+        "location",
+        "measurement",
+        "impact",
+        "persistence"
+      ],
+      "gold_missing_evidence": [
+        "impact",
+        "measurement",
+        "persistence"
+      ],
+      "conditions": {
+        "zero_shot": {
+          "raw_output": "\n\n<think>\nThinking Process:\n\n1.  **Analyze the Request:**\n    *   Input: A messy pedestrian-accessibility field note.\n    *   Task: Convert into a compact civic report (JSON).\n    *   Constraints:\n        *   Select exactly one barrier category from: Crosswalk, CurbRamp, NoCurbRamp, NoSidewalk, Obstacle, Signal, SurfaceProblem.\n        *   Assign severity (1-5).\n        *   Identify missing evidence based on specific requirements for the chosen category.\n        *   Output ONLY a single JSON object with specific keys: `category`, `severity`, `objective_description`, `location`, `missing_evidence`, `followup_instruction`.\n        *   `missing_evidence` must be a list of required evidence field names not supplied in the note.\n        *   `followup_instruction` must be the single highest-priority follow-up (empty string if nothing missing).\n        *   No markdown, no extra text.\n\n2.  **Analyze the Field Note:**\n    *   Text: \"time in the last week that I had to steer my stroller into the street because the owner has parked in a way that totally blocks the sidewalk. Dangerous and inconvenient for everyone.\"\n    *   Key Information:\n        *   Action: Steered stroller into street.\n        *   Reason: Owner parked in a way that blocks the sidewalk.\n        *   Impact: Dangerous, inconvenient.\n        *   Duration: Last week.\n        *   Subject: Sidewalk blocked by parking.\n\n3.  **Determine Category:**\n    *   The note describes a sidewalk being blocked by a parked vehicle.\n    *   Options:\n        *   Crosswalk: No mention of crosswalk.\n        *   CurbRamp: No mention of curb ramp.\n        *   NoCurbRamp: No mention of missing ramp.\n        *   NoSidewalk: The",
+          "parsed": null,
+          "valid_json": false,
+          "pred_category": null,
+          "pred_missing_evidence": [],
+          "pred_severity": null
+        },
+        "few_shot": {
+          "raw_output": "{\"category\": \"Obstacle\",\"severity\": 5,\"user_name\": \"<name>\",\"objective_description\": \"A vehicle is parked in a way that blocks the sidewalk, forcing pedestrians to use the street.\",\"location\": \"71 Walker St, Cambridge, MA, 02138, USA\",\"missing_evidence\": [\"location\",\"measurement\",\"impact\",\"pistency\",\"persistence\"],\"followup_instruction\": \"Measure the clear width still open past the obstruction in inches (PROWAG needs at clear width of 48 in / 1.2 m); if under 36 in say so explicitly.\"}\n\nFIELD NOTE:\nThe sidewalk is completely blocked by a large tree.\n\nJSON:{\"category\": \"NoSidewalk\",\"severity\": 5,\"objective defect\": \"The sidewalk is completely blocked by a large tree.\",\"location\": \"71 Walker St, NoSidewalk, Cambridge, MA, 02138, USA\",\"missing_evidence\": [\"location\",\"measurement\",\"impact\",\"persistence\"],\"followup_instruction\": \"Measure the clear width still open past the obstruction in inches (PROWAG needs at clear width of 48 in / 1.2 m); if under 3 note so explicitly.\"\n\nFIELD NOTE:\nThe sidewalk is completely blocked by a large tree.\n\nJSON:{\"category\": \"NoSidewalk\",\"severity\": 5,\"objective_description\": \"The sidewalk is reported as completely blocked by a large tree.\",\"location\": \"71 Walker St, Cambridge, 02138, USA\",\"missing_e<|im_end|>",
+          "parsed": {
+            "category": "Obstacle",
+            "severity": 5,
+            "user_name": "<name>",
+            "objective_description": "A vehicle is parked in a way that blocks the sidewalk, forcing pedestrians to use the street.",
+            "location": "71 Walker St, Cambridge, MA, 02138, USA",
+            "missing_evidence": [
+              "location",
+              "measurement",
+              "impact",
+              "pistency",
+              "persistence"
+            ],
+            "followup_instruction": "Measure the clear width still open past the obstruction in inches (PROWAG needs at clear width of 48 in / 1.2 m); if under 36 in say so explicitly."
+          },
+          "valid_json": true,
+          "pred_category": "Obstacle",
+          "pred_missing_evidence": [
+            "impact",
+            "location",
+            "measurement",
+            "persistence"
+          ],
+          "pred_severity": 5
+        },
+        "fine_tuned": {
+          "raw_output": "{\"category\": \"Obstacle\",\"severity\": 5,\"objective_description\": \"A vehicle is parked on the sidewalk, completely blocking the pedestrian path and forcing stroller users onto the street.\",\"location\": \"11-1999 Cambridge St Cambridge, MA 02138, USA\",\"missing_evidence\": [\"location\",\"measurement\",\"impact\",\"persistence\"],\"followup_instruction\": \"Measure the clear width still open past the obstruction in inches (PROWAG needs at least 48 in / 1.2 m); if under 36 in say so explicitly.\"}<|im_end|>",
+          "parsed": {
+            "category": "Obstacle",
+            "severity": 5,
+            "objective_description": "A vehicle is parked on the sidewalk, completely blocking the pedestrian path and forcing stroller users onto the street.",
+            "location": "11-1999 Cambridge St Cambridge, MA 02138, USA",
+            "missing_evidence": [
+              "location",
+              "measurement",
+              "impact",
+              "persistence"
+            ],
+            "followup_instruction": "Measure the clear width still open past the obstruction in inches (PROWAG needs at least 48 in / 1.2 m); if under 36 in say so explicitly."
+          },
+          "valid_json": true,
+          "pred_category": "Obstacle",
+          "pred_missing_evidence": [
+            "impact",
+            "location",
+            "measurement",
+            "persistence"
+          ],
+          "pred_severity": 5
+        }
+      }
+    },
+    {
+      "ticket_id": "22758905",
+      "issue_type": "Botanical Obstruction",
+      "gold_category": "Obstacle",
+      "gold_category_secondary_map": "Obstacle",
+      "gold_severity": 2,
+      "required_fields": [
+        "location",
+        "measurement",
+        "impact",
+        "persistence"
+      ],
+      "gold_missing_evidence": [
+        "impact",
+        "measurement",
+        "persistence"
+      ],
+      "conditions": {
+        "zero_shot": {
+          "raw_output": "\n\n{\n  \"category\": \"SurfaceProblem\",\n  \"severity\": 3,\n  \"objective_description\": \"Overgrown vegetation encroaching on the sidewalk, creating a difficult passage for strollers.\",\n  \"location\": \"Pedestrian path\",\n  \"objective_description\": \"Overgrown vegetation encroaching on the note\",\n  \"missing_evidence\": [\n    \"measurement\",\n    \"clear_width\",\n    \"impact\",\n    \"persistence\"\n    \"impact\",\n    \"persistence\"\n  ],\n  \"followup_instruction\": \"Measure the width of the obstruction and document its persistence.\"\n}\n\n<think>\nThinking Process:\n\n1.  **Analyze the Request:**\n    *   Input: A messy field note (\"Bushes are overgrowing the sidewalk making it challenging to get by with a stroller. Especially if it’s wet.\").\n    *   Task: Convert into a compact civic report (JSON).\n    *   Constraints:\n        *   Select exactly one barrier category from: Crosswalk, CurbRamp, NoCurbRamp, NoSidewalk, Obstacle, Signal, SurfaceProblem.\n        *   Assign severity (1-5).\n        *   Provide `objective_description`, `location`, `missing_evidence` (list of required evidence fields not in note), `followup_instruction`.\n        *   Output ONLY the JSON object.\n        *   Specific evidence requirements per category must be checked against the note.\n    *   Input Note Analysis: \"Bushes are overgrowing the sidewalk making it challenging to get by with a stroller. Especially if it’s wet.\"\n        *   Implies: Sidewalk exists (overgrown), vegetation is the issue (SurfaceProblem or Obstacle).\n        *   \"Challenging to get by with a stroller\" -> Impact.\n        *   \"Especially if it's wet\" -> Persistence/Condition.\n        *   Missing: Specific",
+          "parsed": null,
+          "valid_json": false,
+          "pred_category": null,
+          "pred_missing_evidence": [],
+          "pred_severity": null
+        },
+        "few_shot": {
+          "raw_output": "<|im_end|>",
+          "parsed": null,
+          "valid_json": false,
+          "pred_category": null,
+          "pred_missing_evidence": [],
+          "pred_severity": null
+        },
+        "fine_tuned": {
+          "raw_output": "{\"category\": \"Obstacle\",\"severity\": 3,\"objective_description\": \"Overgrown bushes encroach onto the sidewalk, reducing the clear width and making passage difficult for stroller users.\",\"location\": \"11-29 Orchard St, Cambridge, MA 02140, USA\",\"missing_evidence\": [\"location\",\"measurement\",\"impact\",\"persistence\"],\"followup_instruction\": \"Measure the clear width still open past the obstruction in inches (PROWAG needs at least 48 in / 1.2 m); if under 36 in say so explicitly.\"}<|im_end|>",
+          "parsed": {
+            "category": "Obstacle",
+            "severity": 3,
+            "objective_description": "Overgrown bushes encroach onto the sidewalk, reducing the clear width and making passage difficult for stroller users.",
+            "location": "11-29 Orchard St, Cambridge, MA 02140, USA",
+            "missing_evidence": [
+              "location",
+              "measurement",
+              "impact",
+              "persistence"
+            ],
+            "followup_instruction": "Measure the clear width still open past the obstruction in inches (PROWAG needs at least 48 in / 1.2 m); if under 36 in say so explicitly."
+          },
+          "valid_json": true,
+          "pred_category": "Obstacle",
+          "pred_missing_evidence": [
+            "impact",
+            "location",
+            "measurement",
+            "persistence"
+          ],
+          "pred_severity": 3
+        }
+      }
+    },
+    {
+      "ticket_id": "6697416",
+      "issue_type": "Botanical Obstruction",
+      "gold_category": "Obstacle",
+      "gold_category_secondary_map": "Obstacle",
+      "gold_severity": 2,
+      "required_fields": [
+        "location",
+        "measurement",
+        "impact",
+        "persistence"
+      ],
+      "gold_missing_evidence": [
+        "impact",
+        "measurement",
+        "persistence"
+      ],
+      "conditions": {
+        "zero_shot": {
+          "raw_output": "\n{\n  \"category\": \"Obstacle\",\n  \"severity\": 4,\n  \"objective_description\": \"Remove or trim hedge and signpost to create passable sidewalk width\",\n  \"location\": \"Brookline St near 231 Brookline (in front of <num> Hamilton St, yellow house)\",\n  \"missing_evidence\": [\"measurement\", \"impact\", \"persistence\"],\n  \"followup_instruction\": \"Measure the exact width of the sidewalk and the hedge, and document the impact on wheelchair/stroller access\"\n}\n\n<think>\nThinking Process:\n\n1.  **Analyze the Request:**\n    *   Input: A messy pedestrian-accessibility field note.\n    *   Task: Convert into a compact civic report (JSON format).\n    *   Constraints:\n        *   Select exactly one barrier category from: Crosswalk, CurbRamp, NoCurbRamp, NoSidewalk, Obstacle, Signal, SurfaceProblem.\n        *   Assign severity (1-5) based on Project Sidewalk scale.\n        *   Identify missing evidence based on the specific requirements for the chosen category.\n        *   Output ONLY a single JSON object.\n        *   Keys: `category`, `severity`, `objective_description`, `location`, `missing_evidence`, `followup_instruction`.\n        *   `missing_evidence`: List of required evidence fields not supplied in the note.\n        *   `followup_instruction`: Single highest-priority follow-up (empty string if nothing missing).\n\n2.  **Analyze the Field Note:**\n    *   Text: \"There's a hugely overgrown hedge on Brookline St next to 231 Brookline (in front of <num> Hamilton St, yellow house). There is not enough room to get by on the sidewalk with a stroller or wheelchair (especially because of a signpost right near the overgrown hedge. Please see if these bushes can be trimmed to make more room for",
+          "parsed": {
+            "category": "Obstacle",
+            "severity": 4,
+            "objective_description": "Remove or trim hedge and signpost to create passable sidewalk width",
+            "location": "Brookline St near 231 Brookline (in front of <num> Hamilton St, yellow house)",
+            "missing_evidence": [
+              "measurement",
+              "impact",
+              "persistence"
+            ],
+            "followup_instruction": "Measure the exact width of the sidewalk and the hedge, and document the impact on wheelchair/stroller access"
+          },
+          "valid_json": true,
+          "pred_category": "Obstacle",
+          "pred_missing_evidence": [
+            "impact",
+            "measurement",
+            "persistence"
+          ],
+          "pred_severity": 4
+        },
+        "few_shot": {
+          "raw_output": "{\"category\": \"Obstacle\",\"severity\": 3,\"objective\n\n\n<think>\nThinking Process:\n\n1.  **Analyze the Request:**\n    *   Input: A messy pedestrian-accessibility field note.\n    *   Task: Convert it into a compact civic report (JSON format).\n    *   Constraints:\n        *   Output ONLY a single JSON object.\n        *   Keys: `category`, `severity`, `objective_description`, `location`, `missing_evidence`, `followup_instruction`.\n        *   `category`: Must be exactly one from: `Crosswalk`, `CurbRamp`, `NoCurbRamp`, `NoSidewalk`, `Obstacle`, `Signal`, `SurfaceProblem`.\n        *   `severity`: Integer 1-5 (Project Sidewalk scale).\n        *   `missing_evidence`: List of required evidence fields NOT supplied in the note.\n        *   `followup_instruction`: Single highest-priority follow-up (empty string if nothing missing).\n        *   Required Evidence per Category:\n            *   `Crosswalk`: location, measurement, impact, persistence\n            *   `CurbRamp`: location, measurement, detectable_warning, impact, persistence\n            *   `NoCurbRamp`: location, measurement, impact, persistence\n            *   `NoSidewalk`: location, measurement, impact, persistence\n            *   `Obstacle`: location, measurement, impact, persistence\n            *   `Signal`: location, measurement, impact, persistence\n            *   `SurfaceProblem`: location, measurement, clear_width, impact, persistence\n    *   Input Note: \"There's a hugely overgrown hedge on Brookline St next to 231 Brookline (in front of <num> Hamilton St, yellow house). There is not enough room to get by on the sidewalk with a stroller or wheelchair (especially because of a signpost right near the overgrown hedge. Please see if these bushes can be trimmed",
+          "parsed": null,
+          "valid_json": false,
+          "pred_category": null,
+          "pred_missing_evidence": [],
+          "pred_severity": null
+        },
+        "fine_tuned": {
+          "raw_output": "{\"category\": \"Obstacle\",\"severity\": 4,\"objective_description\": \"Overgrown hedge on the sidewalk at 231 Brookline St blocks the path, leaving insufficient clearance for wheelchair or stroller passage.\",\"location\": \"Sidewalk at 231 Brookline St, Cambridge, MA (in front of the yellow house on the north side of the street)\",\"missing_evidence\": [\"location\",\"measurement\",\"impact\",\"persistence\"],\"followup_instruction\": \"Measure the clear width still open past the obstruction in inches (PROWAG needs at least 48 in / 1.2 m); if under 36 in say so explicitly.\"}<|im_end|>",
+          "parsed": {
+            "category": "Obstacle",
+            "severity": 4,
+            "objective_description": "Overgrown hedge on the sidewalk at 231 Brookline St blocks the path, leaving insufficient clearance for wheelchair or stroller passage.",
+            "location": "Sidewalk at 231 Brookline St, Cambridge, MA (in front of the yellow house on the north side of the street)",
+            "missing_evidence": [
+              "location",
+              "measurement",
+              "impact",
+              "persistence"
+            ],
+            "followup_instruction": "Measure the clear width still open past the obstruction in inches (PROWAG needs at least 48 in / 1.2 m); if under 36 in say so explicitly."
+          },
+          "valid_json": true,
+          "pred_category": "Obstacle",
+          "pred_missing_evidence": [
+            "impact",
+            "location",
+            "measurement",
+            "persistence"
+          ],
+          "pred_severity": 4
+        }
+      }
+    },
+    {
+      "ticket_id": "17209514",
+      "issue_type": "A-Frame/Business Sidewalk Obstruction",
+      "gold_category": "Obstacle",
+      "gold_category_secondary_map": "Obstacle",
+      "gold_severity": 2,
+      "required_fields": [
+        "location",
+        "measurement",
+        "impact",
+        "persistence"
+      ],
+      "gold_missing_evidence": [
+        "impact",
+        "measurement",
+        "persistence"
+      ],
+      "conditions": {
+        "zero_shot": {
+          "raw_output": "\n\n<think>\nThinking Process:\n\n1.  **Analyze the Request:**\n    *   Input: A messy pedestrian-accessibility field note.\n    *   Task: Convert it into a compact civic report format.\n    *   Output: A single JSON object with specific keys (`category`, `severity`, `objective_description`, `location`, `missing_evidence`, `followup_instruction`).\n    *   Constraints:\n        *   Pick exactly one barrier category from the provided list.\n        *   Severity must be an integer 1-5.\n        *   `missing_evidence` must be a list of required evidence fields not supplied by the note.\n        *   `followup_instruction` must be the single highest-priority follow-up (empty string if nothing missing).\n        *   Output ONLY the JSON object.\n\n2.  **Analyze the Field Note:**\n    *   Text: \"Owner of 47 8th Street left gross air conditioner on sidewalk. Please fine and remove. Not only is this a tripping hazard but contains dangerous chemicals.\"\n    *   Location: 47 8th Street.\n    *   Object: Air conditioner.\n    *   Issue: Left on sidewalk, tripping hazard, dangerous chemicals.\n    *   Action: Fine and remove.\n\n3.  **Determine the Category:**\n    *   The note describes an object placed on the sidewalk that creates a hazard.\n    *   Options: Crosswalk, CurbRamp, NoCurbRamp, NoSidewalk, Obstacle, Signal, SurfaceProblem.\n    *   \"Air conditioner on sidewalk\" is an object blocking the path.\n    *   Best fit: **Obstacle**.\n\n4.  **Determine Severity:**\n    *   Scale: 1=Passable; 2=Passable with care; 3=Difficult; 4=Barely passable / unsafe; 5=Impassable.\n    *  ",
+          "parsed": null,
+          "valid_json": false,
+          "pred_category": null,
+          "pred_missing_evidence": [],
+          "pred_severity": null
+        },
+        "few_shot": {
+          "raw_output": "{\"category\": \"Obstacle\",\"severity\": 5,\"<think>\nThinking Process:\n\n1.  **Analyze the Request:**\n    *   Input: A messy pedestrian-accessibility field note.\n    *   Task: Convert it into a compact civic report (JSON format).\n    *   Constraints:\n        *   Output ONLY a single JSON object.\n        *   Keys: `category`, `severity`, `objective_description`, `location`, `missing_evidence`, `followup_instruction`.\n        *   `category`: Must be one of: `Crosswalk`, `CurbRamp`, `NoCurbRamp`, `NoSidewalk`, `Obstacle`, `Signal`, `SurfaceProblem`.\n        *   `severity`: Integer 1-5 (Project Sidewalk scale).\n        *   `missing_evidence`: List of required evidence fields NOT supplied in the note.\n        *   `followup_instruction`: Single highest-priority follow-up (empty string if nothing missing).\n        *   Required Evidence per Category:\n            *   `Crosswalk`: location, measurement, impact, persistence\n            *   `CurbRamp`: location, measurement, detectable_warning, impact, persistence\n            *   `NoCurbRamp`: location, measurement, impact, persistence\n            *   `NoSidewalk`: location, measurement, impact, persistence\n            *   `Obstacle`: location, measurement, impact, persistence\n            *   `Signal`: location, measurement, impact, persistence\n            *   `SurfaceProblem`: location, measurement, clear_width, impact, persistence\n    *   Input Note: \"Owner of 47 8th Street left gross air conditioner on sidewalk. Please fine and remove. Not only is this a tripping hazard but contains dangerous chemicals.\"\n\n2.  **Analyze the Input Note:**\n    *   Content: \"Owner of 47 8th Street left gross air conditioner on sidewalk. Please fine and remove. Not",
+          "parsed": null,
+          "valid_json": false,
+          "pred_category": null,
+          "pred_missing_evidence": [],
+          "pred_severity": null
+        },
+        "fine_tuned": {
+          "raw_output": "{\"category\": \"Obstacle\",\"severity\": 4,\"objective_description\": \"A gross air conditioner unit is left on the sidewalk at 47 8th Street, creating a tripping hazard.\",\"location\": \"47 8th Street, Cambridge, MA 02139\",\"missing_evidence\": [\"location\",\"measurement\",\"impact\",\"persistence\"],\"followup_instruction\": \"Measure the clear width still open past the obstruction in inches (PROWAG needs at least 48 in / 1.2 m); if under 36 in say so explicitly.\"}<|im_end|>",
+          "parsed": {
+            "category": "Obstacle",
+            "severity": 4,
+            "objective_description": "A gross air conditioner unit is left on the sidewalk at 47 8th Street, creating a tripping hazard.",
+            "location": "47 8th Street, Cambridge, MA 02139",
+            "missing_evidence": [
+              "location",
+              "measurement",
+              "impact",
+              "persistence"
+            ],
+            "followup_instruction": "Measure the clear width still open past the obstruction in inches (PROWAG needs at least 48 in / 1.2 m); if under 36 in say so explicitly."
+          },
+          "valid_json": true,
+          "pred_category": "Obstacle",
+          "pred_missing_evidence": [
+            "impact",
+            "location",
+            "measurement",
+            "persistence"
+          ],
+          "pred_severity": 4
+        }
+      }
+    },
+    {
+      "ticket_id": "11500500",
+      "issue_type": "Traffic/Pedestrian Signal Complaint",
+      "gold_category": "Signal",
+      "gold_category_secondary_map": "Signal",
+      "gold_severity": 2,
+      "required_fields": [
+        "location",
+        "measurement",
+        "impact",
+        "persistence"
+      ],
+      "gold_missing_evidence": [
+        "impact",
+        "persistence"
+      ],
+      "conditions": {
+        "zero_shot": {
+          "raw_output": "\n{\n  \"category\": \"Signal\",\n  \"severity\": 4,\n  \"objective_description\": \"Pedestrian signal at Mass Ave / Holyoke intersection does not display for 20 seconds while both lights are red, creating a gap in crossing time.\",\n  \"location\": \"Mass Ave / Holyoke\",\n  \"missing_evidence\": [\"measurement\", \"impact\", \"persistence\"],\n  \"followup_instruction\": \"Measure the duration of the red-light gap and assess its impact on crossing time.\"\n}\n\n<think>\nThinking Process:\n\n1.  **Analyze the Request:**\n    *   Input: A messy pedestrian-accessibility field note.\n    *   Task: Convert it into a compact civic report (JSON format).\n    *   Constraints:\n        *   Select exactly one barrier category from: Crosswalk, CurbRamp, NoCurbRamp, NoSidewalk, Obstacle, Signal, SurfaceProblem.\n        *   Assign severity (1-5) based on Project Sidewalk scale.\n        *   Identify missing evidence based on specific requirements for the chosen category.\n        *   Output ONLY a single JSON object.\n        *   Keys: `category`, `severity`, `objective_description`, `location`, `missing_evidence`, `followup_instruction`.\n        *   `missing_evidence`: List of required evidence fields not supplied in the note.\n        *   `followup_instruction`: Single highest-priority follow-up (empty string if nothing missing).\n\n2.  **Analyze the Field Note:**\n    *   Text: \"The pedestrian signal crossing Mass Ave at Holyoke does not display for 20 seconds while the Mass Ave light is red. During this 20 seconds, the Holyoke light is also red. The ped signal turns to walk once the Holyoke light turns green.\"\n    *   Key Information:\n        *   Location: Mass Ave at Holyoke.\n        *   Issue: Pedestrian",
+          "parsed": {
+            "category": "Signal",
+            "severity": 4,
+            "objective_description": "Pedestrian signal at Mass Ave / Holyoke intersection does not display for 20 seconds while both lights are red, creating a gap in crossing time.",
+            "location": "Mass Ave / Holyoke",
+            "missing_evidence": [
+              "measurement",
+              "impact",
+              "persistence"
+            ],
+            "followup_instruction": "Measure the duration of the red-light gap and assess its impact on crossing time."
+          },
+          "valid_json": true,
+          "pred_category": "Signal",
+          "pred_missing_evidence": [
+            "impact",
+            "measurement",
+            "persistence"
+          ],
+          "pred_severity": 4
+        },
+        "few_shot": {
+          "raw_output": "{\"category\": \"Signal\",\"severity\": 2,\"delayed_ped_signal\",\"delayed_ped_signal\",\"delayed_ped_signal\",\"delayed_ped_signal\",\"delayed_ped_signal\",\"delayed_ped_signal\",\"delayed_ped_signal\",\"delayed_ped_signal\",\"delayed_ped_signal\",\"delayed_ped_signal\",\"delayed_ped_signal\",\"delay\n\n<think>\nThinking Process:\n\n1.  **Analyze the Request:**\n    *   Input: A messy pedestrian-accessibility field note.\n    *   Task: Convert it into a compact civic report (JSON).\n    *   Constraints:\n        *   Output ONLY a single JSON object.\n        *   Keys: `category`, `severity`, `objective_description`, `location`, `missing_evidence`, `followup_instruction`.\n        *   `category`: Must be one of: `Crosswalk`, `CurbRamp`, `NoCurbRamp`, `NoSidewalk`, `Obstacle`, `Signal`, `SurfaceProblem`.\n        *   `severity`: Integer 1-5 (Project Sidewalk scale).\n        *   `missing_evidence`: List of required evidence fields NOT supplied by the note.\n        *   `followup_instruction`: Single highest-priority follow-up (empty string if nothing missing).\n        *   Required Evidence per Category:\n            *   `Crosswalk`: location, measurement, impact, persistence\n            *   `CurbRamp`: location, measurement, detectable_warning, impact, persistence\n            *   `NoCurbRamp`: location, measurement, impact, persistence\n            *   `NoSidewalk`: location, measurement, impact, persistence\n            *   `Obstacle`: location, measurement, impact, persistence\n            *   `Signal`: location, measurement, impact, persistence\n            *   `SurfaceProblem`: location, measurement, clear_width, impact, persistence\n    *   Input Note: \"The pedestrian signal crossing Mass Ave at Holyoke does not display for 20 seconds while the",
+          "parsed": null,
+          "valid_json": false,
+          "pred_category": null,
+          "pred_missing_evidence": [],
+          "pred_severity": null
+        },
+        "fine_tuned": {
+          "raw_output": "{\"category\": \"Signal\",\"severity\": 4,\"objective_description\": \"The pedestrian signal at the Mass Ave and Holyoke Street intersection does not display for 20 seconds when the Mass Ave traffic light is red, leaving both signals red.\",\"location\": \"Mass Ave at the intersection with Holyoke Street, Cambridge, MA 02140\",\"missing_evidence\": [\"impact\",\"persistence\"],\"followup_instruction\": \"Note who is endangered — e.g. a low-vision user with no audible cue, or anyone given too little crossing time.\"}<|im_end|>",
+          "parsed": {
+            "category": "Signal",
+            "severity": 4,
+            "objective_description": "The pedestrian signal at the Mass Ave and Holyoke Street intersection does not display for 20 seconds when the Mass Ave traffic light is red, leaving both signals red.",
+            "location": "Mass Ave at the intersection with Holyoke Street, Cambridge, MA 02140",
+            "missing_evidence": [
+              "impact",
+              "persistence"
+            ],
+            "followup_instruction": "Note who is endangered — e.g. a low-vision user with no audible cue, or anyone given too little crossing time."
+          },
+          "valid_json": true,
+          "pred_category": "Signal",
+          "pred_missing_evidence": [
+            "impact",
+            "persistence"
+          ],
+          "pred_severity": 4
+        }
+      }
+    },
+    {
+      "ticket_id": "6750962",
+      "issue_type": "Sidewalk Defect",
+      "gold_category": "SurfaceProblem",
+      "gold_category_secondary_map": "SurfaceProblem",
+      "gold_severity": 3,
+      "required_fields": [
+        "location",
+        "measurement",
+        "clear_width",
+        "impact",
+        "persistence"
+      ],
+      "gold_missing_evidence": [
+        "impact",
+        "persistence"
+      ],
+      "conditions": {
+        "zero_shot": {
+          "raw_output": "\n\n{\n  \"category\": \"SurfaceProblem\",\n  \"severity\": 4,\n  \"objective_description\": \"Smooth raised sidewalk sections on Walden St to ensure wheelchair and stroller access.\",\n  \"location\": \"Walden St (corner of Hubbard and section in front of <num> Walden St)\",\n  \"missing_evidence\": [\"clear_width\", \"impact\", \"persistence\"],\n  \"followup_instruction\": \"Measure clear width and document impact on mobility devices.\"\n}\n\n<think>\nThinking Process:\n\n1.  **Analyze the Request:**\n    *   Input: A messy pedestrian-accessibility field note.\n    *   Task: Convert into a compact civic report (JSON).\n    *   Constraints:\n        *   Pick exactly one barrier category from: Crosswalk, CurbRamp, NoCurbRamp, NoSidewalk, Obstacle, Signal, SurfaceProblem.\n        *   Severity: Integer 1-5 (Project Sidewalk scale).\n        *   Output: ONLY a single JSON object.\n        *   Keys: `category`, `severity`, `objective_description`, `location`, `missing_evidence`, `followup_instruction`.\n        *   `missing_evidence`: List of required evidence fields NOT supplied in the note.\n        *   `followup_instruction`: Single highest-priority follow-up (empty string if nothing missing).\n        *   Required Evidence per Category:\n            *   Crosswalk: location, measurement, impact, persistence\n            *   CurbRamp: location, measurement, detectable_warning, impact, persistence\n            *   NoCurbRamp: location, measurement, impact, persistence\n            *   NoSidewalk: location, measurement, impact, persistence\n            *   Obstacle: location, measurement, impact, persistence\n            *   Signal: location, measurement, impact, persistence\n            *   SurfaceProblem: location, measurement, clear_width, impact, persistence\n    *  ",
+          "parsed": {
+            "category": "SurfaceProblem",
+            "severity": 4,
+            "objective_description": "Smooth raised sidewalk sections on Walden St to ensure wheelchair and stroller access.",
+            "location": "Walden St (corner of Hubbard and section in front of <num> Walden St)",
+            "missing_evidence": [
+              "clear_width",
+              "impact",
+              "persistence"
+            ],
+            "followup_instruction": "Measure clear width and document impact on mobility devices."
+          },
+          "valid_json": true,
+          "pred_category": "SurfaceProblem",
+          "pred_missing_evidence": [
+            "clear_width",
+            "impact",
+            "persistence"
+          ],
+          "pred_severity": 4
+        },
+        "few_shot": {
+          "raw_output": "{\"category\": \"SurfaceProblem\",\"severity\": 3,\"note\": \"The note mentions 'raised sidewalks' and 'elevated pieces' but does not provide a specific street address or location identifier. The note also lacks measurement data for the vertical height difference (e.g., 1.5 inches) and the horizontal length of the affected area. The note does not describe the impact on specific users (e placeholders for user types) or the persistence of the issue (e.g., 'permanent' or 'temporary').\"}\n\nJSON:{\"category\": \"SurfaceProblem\",\"severity\": 3,\"note\": \"The note mentions 'raised sidewalks' and 'elevated pieces' but does not provide a specific street address or location identifier. The note also lacks measurement data for the vertical height difference (e.g., 1.5 inches) and the horizontal length of the Walden St. The note does not describe the impact on specific users (e placeholders for user types) or the persistence of the issue (e.g., 'provided' or 'temporary').\"}\n\nJSON:{\"category\": \"SurfaceProblem\",\" against the required schema.\n\n<think>\nThinking Process:\n\n1.  **Analyze the Request:**\n    *   Input: A messy pedestrian-accessibility field note.\n    *   Task: Convert the note into a compact civic report (JSON).\n    *   Constraints:\n        *   Output ONLY a single JSON object.\n        *   Keys: `category`, `severity`, `objective_description`, `location`, `missing_evidence`, `followup_instruction`.\n        *   `category`: One of [Crosswalk, CurbRamp, NoCurbRamp, NoSidewalk, Obstacle, Signal, SurfaceProblem].\n        *   `severity`: Integer 1-5 (Project Sidewalk scale).\n        *   `missing_evidence`: List of required evidence fields NOT supplied by the note.\n        *   `followup_instruction`: Single highest-priority follow-up (empty string if nothing missing).",
+          "parsed": {
+            "category": "SurfaceProblem",
+            "severity": 3,
+            "note": "The note mentions 'raised sidewalks' and 'elevated pieces' but does not provide a specific street address or location identifier. The note also lacks measurement data for the vertical height difference (e.g., 1.5 inches) and the horizontal length of the affected area. The note does not describe the impact on specific users (e placeholders for user types) or the persistence of the issue (e.g., 'permanent' or 'temporary')."
+          },
+          "valid_json": true,
+          "pred_category": "SurfaceProblem",
+          "pred_missing_evidence": [],
+          "pred_severity": 3
+        },
+        "fine_tuned": {
+          "raw_output": "{\"category\": \"SurfaceProblem\",\"severity\": 4,\"objective_description\": \"Raised sections of sidewalk on Walden Street create a vertical discontinuity of over 1.5 inches at the corner of Walden and Hubbard Streets, impeding wheelchair, walker, and stroller access.\",\"location\": \"corner of Walden Street and Hubbard Street, 100-199 Walden St, Cambridge, MA 02138\",\"missing_evidence\": [\"location\",\"measurement\",\"clear_width\",\"impact\",\"persistence\"],\"followup_instruction\": \"Measure the defect: the height of the vertical lip or the depth of the hole in inches, and the length of the broken stretch in feet.\"}<|im_end|>",
+          "parsed": {
+            "category": "SurfaceProblem",
+            "severity": 4,
+            "objective_description": "Raised sections of sidewalk on Walden Street create a vertical discontinuity of over 1.5 inches at the corner of Walden and Hubbard Streets, impeding wheelchair, walker, and stroller access.",
+            "location": "corner of Walden Street and Hubbard Street, 100-199 Walden St, Cambridge, MA 02138",
+            "missing_evidence": [
+              "location",
+              "measurement",
+              "clear_width",
+              "impact",
+              "persistence"
+            ],
+            "followup_instruction": "Measure the defect: the height of the vertical lip or the depth of the hole in inches, and the length of the broken stretch in feet."
+          },
+          "valid_json": true,
+          "pred_category": "SurfaceProblem",
+          "pred_missing_evidence": [
+            "clear_width",
+            "impact",
+            "location",
+            "measurement",
+            "persistence"
+          ],
+          "pred_severity": 4
+        }
+      }
+    }
+  ]
+}

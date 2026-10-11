@@ -1,0 +1,5 @@
+tinker==0.33.1
+requests==2.32.5
+python-dotenv==1.2.4
+pandas==2.3.3
+flask==3.1.3

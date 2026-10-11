@@ -1,0 +1,27 @@
+{
+  "query_url": "https://data.cambridgema.gov/resource/2z9k-mv9g.json",
+  "issue_types": [
+    "Sidewalk Defect",
+    "Sidewalk Obstruction",
+    "A-Frame/Business Sidewalk Obstruction",
+    "Botanical Obstruction",
+    "Traffic/Pedestrian Signal Complaint"
+  ],
+  "min_desc_len": 40,
+  "total_rows_returned": 11404,
+  "per_issue_type_counts_raw": {
+    "Sidewalk Defect": 5238,
+    "Traffic/Pedestrian Signal Complaint": 3091,
+    "Botanical Obstruction": 1668,
+    "A-Frame/Business Sidewalk Obstruction": 759,
+    "Sidewalk Obstruction": 648
+  },
+  "cleaned_rows": 11397,
+  "sampled_rows": 500,
+  "train_rows": 400,
+  "heldout_rows": 100,
+  "priority_rows_in_sample": 219,
+  "address_leaks": 0,
+  "ticket_leaks": 0,
+  "random_seed": 20261011
+}

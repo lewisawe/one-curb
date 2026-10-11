@@ -1,0 +1,10 @@
+One Curb — train/held-out split leakage check
+=============================================
+train rows                 : 400
+heldout rows               : 100
+distinct train addresses   : 391
+distinct heldout addresses : 98
+addresses in BOTH splits   : 0
+ticket_ids in BOTH splits  : 0
+
+ASSERTION PASSED: no address and no ticket_id appears in both splits.

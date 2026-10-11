@@ -1,0 +1,73 @@
+[
+  {
+    "address": "61 Saville St, Cambridge, MA",
+    "note": "Car is perpetually parked on the sidewalk, obstructing wheelchairs and strollers. Have needed to walk in the street multiple times because of this.",
+    "report": {
+      "ok": true,
+      "report": {
+        "category": "Obstacle",
+        "severity": 5,
+        "objective_description": "A vehicle is continuously parked on the sidewalk, blocking the path for wheelchairs and strollers.",
+        "location": "11-19 Kinnaird St, Cambridge, MA 02139, USA",
+        "missing_evidence": [
+          "location",
+          "measurement",
+          "impact",
+          "persistence"
+        ],
+        "followup_instruction": "Measure the clear width still open past the obstruction in inches (PROWAG needs at least 48 in / 1.2 m); if under 36 in say so explicitly."
+      },
+      "raw": "{\"category\": \"Obstacle\",\"severity\": 5,\"objective_description\": \"A vehicle is continuously parked on the sidewalk, blocking the path for wheelchairs and strollers.\",\"location\": \"11-19 Kinnaird St, Cambridge, MA 02139, USA\",\"missing_evidence\": [\"location\",\"measurement\",\"impact\",\"persistence\"],\"followup_instruction\": \"Measure the clear width still open past the obstruction in inches (PROWAG needs at least 48 in / 1.2 m); if under 36 in say so explicitly.\"}<|im_end|>",
+      "error": null,
+      "base_model": "Qwen/Qwen3.5-4B"
+    }
+  },
+  {
+    "address": "1166 Cambridge St, Cambridge, MA",
+    "note": "There are cracks in this portion of the sidewalk which is pushed up. Stroller wheels get caught in the concrete and it is also a trip hazard.",
+    "report": {
+      "ok": true,
+      "report": {
+        "category": "SurfaceProblem",
+        "severity": 3,
+        "objective_description": "Cracked sidewalk segment with heave that causes stroller wheels to catch and creates a trip hazard.",
+        "location": "11-179 Concord Ave, Cambridge, MA 02138, USA",
+        "missing_evidence": [
+          "location",
+          "measurement",
+          "clear_width",
+          "impact",
+          "persistence"
+        ],
+        "followup_instruction": "Measure the defect: the height of the vertical lip or the depth of the hole in inches, and the length of the broken stretch in feet."
+      },
+      "raw": "{\"category\": \"SurfaceProblem\",\"severity\": 3,\"objective_description\": \"Cracked sidewalk segment with heave that causes stroller wheels to catch and creates a trip hazard.\",\"location\": \"11-179 Concord Ave, Cambridge, MA 02138, USA\",\"missing_evidence\": [\"location\",\"measurement\",\"clear_width\",\"impact\",\"persistence\"],\"followup_instruction\": \"Measure the defect: the height of the vertical lip or the depth of the hole in inches, and the length of the broken stretch in feet.\"}<|im_end|>",
+      "error": null,
+      "base_model": "Qwen/Qwen3.5-4B"
+    }
+  },
+  {
+    "address": "820 Memorial Dr, Cambridge, MA",
+    "note": "Rough gaps in the sidewalk make it difficult to walk with a stroller or a shopping cart, especially coming on the sidewalk from the crosswalk.",
+    "report": {
+      "ok": true,
+      "report": {
+        "category": "SurfaceProblem",
+        "severity": 3,
+        "objective_description": "Rough gaps in the sidewalk impede walking, particularly for strollers and shopping carts.",
+        "location": "11-19 Orchard St, Cambridge, MA 02140, USA",
+        "missing_evidence": [
+          "location",
+          "measurement",
+          "clear_width",
+          "impact",
+          "persistence"
+        ],
+        "followup_instruction": "Measure the defect: the height of the vertical lip or the depth of the hole in inches, and the length of the broken stretch in feet."
+      },
+      "raw": "{\"category\": \"SurfaceProblem\",\"severity\": 3,\"objective_description\": \"Rough gaps in the sidewalk impede walking, particularly for strollers and shopping carts.\",\"location\": \"11-19 Orchard St, Cambridge, MA 02140, USA\",\"missing_evidence\": [\"location\",\"measurement\",\"clear_width\",\"impact\",\"persistence\"],\"followup_instruction\": \"Measure the defect: the height of the vertical lip or the depth of the hole in inches, and the length of the broken stretch in feet.\"}<|im_end|>",
+      "error": null,
+      "base_model": "Qwen/Qwen3.5-4B"
+    }
+  }
+]

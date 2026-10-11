@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>One Curb, One Case</title>
+<style>
+  :root {
+    --bg: #0f1419;
+    --panel: #1a222c;
+    --panel-2: #212c38;
+    --ink: #e9eef3;
+    --muted: #9fb0c0;
+    --line: #2e3a48;
+    --accent: #ffb020;      /* the "go measure it" highlight */
+    --accent-ink: #1a1200;
+    --ok: #35c08a;
+    --err: #ff6b6b;
+    --mono: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+    --sans: system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif;
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0; background: var(--bg); color: var(--ink);
+    font-family: var(--sans); line-height: 1.5;
+  }
+  .wrap { max-width: 860px; margin: 0 auto; padding: 32px 20px 72px; }
+  header h1 { margin: 0 0 4px; font-size: 26px; letter-spacing: -0.01em; }
+  header p { margin: 0 0 24px; color: var(--muted); font-size: 15px; }
+  label { display: block; font-weight: 600; margin: 0 0 8px; font-size: 14px; }
+  textarea {
+    width: 100%; min-height: 150px; resize: vertical;
+    background: var(--panel); color: var(--ink);
+    border: 1px solid var(--line); border-radius: 10px;
+    padding: 14px; font-family: var(--mono); font-size: 14px;
+  }
+  textarea:focus { outline: 2px solid var(--accent); outline-offset: 1px; }
+  .row { display: flex; gap: 12px; align-items: center; margin-top: 14px; }
+  button {
+    background: var(--accent); color: var(--accent-ink);
+    border: 0; border-radius: 10px; padding: 12px 20px;
+    font-weight: 700; font-size: 15px; cursor: pointer;
+  }
+  button:disabled { opacity: .6; cursor: progress; }
+  .hint { color: var(--muted); font-size: 13px; }
+  .results { margin-top: 28px; }
+  .card {
+    background: var(--panel); border: 1px solid var(--line);
+    border-radius: 12px; padding: 18px 18px; margin-bottom: 18px;
+  }
+  .card h2 { margin: 0 0 12px; font-size: 15px; text-transform: uppercase;
+    letter-spacing: .06em; color: var(--muted); }
+  /* The headline capability — the missing-evidence / follow-up panel. */
+  .missing {
+    background: #2a2410; border: 1px solid #5a4a16;
+    border-left: 5px solid var(--accent);
+  }
+  .missing h2 { color: var(--accent); }
+  .followup {
+    background: var(--accent); color: var(--accent-ink);
+    border-radius: 10px; padding: 14px 16px; font-weight: 700;
+    font-size: 16px; margin: 0 0 14px;
+  }
+  .followup .kicker {
+    display: block; font-size: 12px; font-weight: 800;
+    text-transform: uppercase; letter-spacing: .08em; opacity: .8; margin-bottom: 4px;
+  }
+  ul.miss { margin: 0; padding-left: 20px; }
+  ul.miss li { margin: 4px 0; font-family: var(--mono); font-size: 14px; }
+  .complete { color: var(--ok); font-weight: 600; }
+  .kv { display: grid; grid-template-columns: 160px 1fr; gap: 8px 16px; }
+  .kv dt { color: var(--muted); font-size: 13px; }
+  .kv dd { margin: 0; }
+  .pill {
+    display: inline-block; background: var(--panel-2); border: 1px solid var(--line);
+    border-radius: 999px; padding: 2px 10px; font-size: 13px; font-family: var(--mono);
+  }
+  .sev { font-weight: 700; }
+  .error {
+    background: #2a1414; border: 1px solid #5a1b1b; border-left: 5px solid var(--err);
+    color: #ffd7d7;
+  }
+  .error h2 { color: var(--err); }
+  pre {
+    background: #0b0f14; color: #cdd9e5; border: 1px solid var(--line);
+    border-radius: 10px; padding: 12px; overflow: auto; font-size: 13px;
+    white-space: pre-wrap; word-break: break-word; margin: 8px 0 0;
+  }
+  footer { margin-top: 24px; color: var(--muted); font-size: 12px; }
+  .hidden { display: none; }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <h1>One Curb, One Case</h1>
+    <p>Paste a messy note about a sidewalk or crossing barrier. The model writes a
+       civic report — and tells you the one thing it's still missing so you can go
+       measure it.</p>
+  </header>
+
+  <label for="note">Messy field note</label>
+  <textarea id="note" placeholder="e.g. The curb by the pharmacy on Main is broken and my chair can't get up it."></textarea>
+  <div class="row">
+    <button id="go" type="button">Generate report</button>
+    <span class="hint" id="status"></span>
+  </div>
+
+  <div class="results hidden" id="results">
+
+    <!-- HEADLINE: missing evidence + the one follow-up instruction -->
+    <section class="card missing" id="missingCard">
+      <h2>What this report is still missing</h2>
+      <div id="followupWrap" class="hidden">
+        <div class="followup">
+          <span class="kicker">Go measure this</span>
+          <span id="followup"></span>
+        </div>
+      </div>
+      <ul class="miss" id="missingList"></ul>
+      <div id="completeNote" class="complete hidden">Nothing missing — this
+        report has every piece of evidence a crew needs.</div>
+    </section>
+
+    <!-- Structured report -->
+    <section class="card" id="reportCard">
+      <h2>Structured report</h2>
+      <dl class="kv">
+        <dt>Category</dt><dd><span class="pill" id="r_category"></span></dd>
+        <dt>Severity (1–5)</dt><dd><span class="sev" id="r_severity"></span></dd>
+        <dt>Location</dt><dd id="r_location"></dd>
+        <dt>Objective description</dt><dd id="r_objdesc"></dd>
+      </dl>
+    </section>
+
+    <!-- Error / raw-output panel (parse failure path) -->
+    <section class="card error hidden" id="errorCard">
+      <h2>Model output could not be fully parsed</h2>
+      <div id="errorMsg"></div>
+      <strong style="display:block;margin-top:10px;font-size:13px;">Raw model output</strong>
+      <pre id="rawOut"></pre>
+    </section>
+
+  </div>
+
+  <footer>
+    Fine-tuned with Tinker (<span id="baseModel">open model</span>).
+    Severity: Project Sidewalk 1–5 scale. Thresholds: PROWAG.
+  </footer>
+</div>
+
+<script>
+(function () {
+  var btn = document.getElementById('go');
+  var note = document.getElementById('note');
+  var statusEl = document.getElementById('status');
+  var results = document.getElementById('results');
+
+  var missingCard = document.getElementById('missingCard');
+  var missingList = document.getElementById('missingList');
+  var followupWrap = document.getElementById('followupWrap');
+  var followupEl = document.getElementById('followup');
+  var completeNote = document.getElementById('completeNote');
+
+  var reportCard = document.getElementById('reportCard');
+  var errorCard = document.getElementById('errorCard');
+  var errorMsg = document.getElementById('errorMsg');
+  var rawOut = document.getElementById('rawOut');
+  var baseModel = document.getElementById('baseModel');
+
+  function show(el) { el.classList.remove('hidden'); }
+  function hide(el) { el.classList.add('hidden'); }
+  function setText(id, v) { document.getElementById(id).textContent = (v == null ? '' : String(v)); }
+
+  function render(data) {
+    show(results);
+    if (data.base_model) baseModel.textContent = data.base_model;
+
+    var report = data.report;
+
+    // ----- Structured report (render whatever fields are present) -----
+    if (report && typeof report === 'object') {
+      show(reportCard);
+      setText('r_category', report.category);
+      setText('r_severity', report.severity);
+      setText('r_location', report.location || '(not specified)');
+      setText('r_objdesc', report.objective_description);
+    } else {
+      hide(reportCard);
+    }
+
+    // ----- Headline: missing evidence + the one follow-up -----
+    var missing = (report && Array.isArray(report.missing_evidence))
+      ? report.missing_evidence : [];
+    var followup = (report && report.followup_instruction)
+      ? report.followup_instruction : '';
+
+    if (report) {
+      show(missingCard);
+      missingList.innerHTML = '';
+      if (missing.length) {
+        hide(completeNote);
+        missing.forEach(function (m) {
+          var li = document.createElement('li');
+          li.textContent = m;
+          missingList.appendChild(li);
+        });
+        if (followup) {
+          followupEl.textContent = followup;
+          show(followupWrap);
+        } else {
+          hide(followupWrap);
+        }
+      } else {
+        hide(followupWrap);
+        show(completeNote);
+      }
+    } else {
+      hide(missingCard);
+    }
+
+    // ----- Error / raw output on parse or schema failure -----
+    if (!data.ok || data.error) {
+      show(errorCard);
+      errorMsg.textContent = data.error || 'Unknown error.';
+      rawOut.textContent = data.raw || '(no raw output)';
+    } else {
+      hide(errorCard);
+    }
+  }
+
+  function run() {
+    var text = note.value.trim();
+    if (!text) { statusEl.textContent = 'Enter a note first.'; return; }
+    btn.disabled = true;
+    statusEl.textContent = 'Generating…';
+    hide(results);
+    fetch('/generate', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ note: text })
+    })
+    .then(function (r) { return r.json().then(function (j) { return { status: r.status, body: j }; }); })
+    .then(function (res) {
+      statusEl.textContent = '';
+      render(res.body);
+    })
+    .catch(function (e) {
+      statusEl.textContent = '';
+      show(results);
+      hide(reportCard); hide(missingCard);
+      show(errorCard);
+      errorMsg.textContent = 'Request failed: ' + e;
+      rawOut.textContent = '';
+    })
+    .finally(function () { btn.disabled = false; });
+  }
+
+  btn.addEventListener('click', run);
+  note.addEventListener('keydown', function (e) {
+    if ((e.metaKey || e.ctrlKey) && e.key === 'Enter') run();
+  });
+})();
+</script>
+</body>
+</html>
